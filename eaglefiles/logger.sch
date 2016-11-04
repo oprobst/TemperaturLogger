@@ -15872,6 +15872,7 @@ Created 2014-07-09, Karrer Zheng&lt;br&gt;
 <part name="C9" library="rcl" deviceset="C-EU" device="C0603" value="100nF"/>
 <part name="R4" library="eagle-ltspice" deviceset="R" device="R1206" value="680"/>
 <part name="C10" library="rcl" deviceset="C-EU" device="C1206" value="10uF"/>
+<part name="C6" library="rcl" deviceset="C-EU" device="C0603" value="100nF"/>
 </parts>
 <sheets>
 <sheet>
@@ -15963,6 +15964,7 @@ Created 2014-07-09, Karrer Zheng&lt;br&gt;
 <instance part="C9" gate="G$1" x="-27.94" y="-20.32" rot="R90"/>
 <instance part="R4" gate="G$1" x="-43.18" y="-10.16"/>
 <instance part="C10" gate="G$1" x="106.68" y="-35.56"/>
+<instance part="C6" gate="G$1" x="43.18" y="-30.48" rot="R90"/>
 </instances>
 <busses>
 </busses>
@@ -16174,6 +16176,11 @@ Created 2014-07-09, Karrer Zheng&lt;br&gt;
 <wire x1="134.62" y1="-2.54" x2="134.62" y2="0" width="0.1524" layer="91"/>
 <pinref part="R1" gate="G$1" pin="1"/>
 <pinref part="U$9" gate="G$1" pin="P$1"/>
+<pinref part="C6" gate="G$1" pin="1"/>
+<wire x1="40.64" y1="-30.48" x2="35.56" y2="-30.48" width="0.1524" layer="91"/>
+<wire x1="35.56" y1="-30.48" x2="35.56" y2="-2.54" width="0.1524" layer="91"/>
+<wire x1="35.56" y1="-2.54" x2="119.38" y2="-2.54" width="0.1524" layer="91"/>
+<junction x="119.38" y="-2.54"/>
 </segment>
 </net>
 <net name="VCC" class="0">
@@ -16401,6 +16408,13 @@ Created 2014-07-09, Karrer Zheng&lt;br&gt;
 <junction x="-53.34" y="-10.16"/>
 <wire x1="-53.34" y1="-10.16" x2="-53.34" y2="-7.62" width="0.1524" layer="91"/>
 <pinref part="U$6" gate="G$1" pin="5V"/>
+</segment>
+</net>
+<net name="N$8" class="0">
+<segment>
+<pinref part="U3" gate="G$1" pin="DTR"/>
+<pinref part="C6" gate="G$1" pin="2"/>
+<wire x1="53.34" y1="-30.48" x2="48.26" y2="-30.48" width="0.1524" layer="91"/>
 </segment>
 </net>
 </nets>
