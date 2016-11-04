@@ -1,11 +1,14 @@
 #include <avr/io.h>
 
 #define F_CPU 1000000
-#define BAUD 2400
+#define BAUD 4800
+
 
 #include <stdint.h>
 #include <util/setbaud.h>
 #include <util/delay.h>
+
+#include "eeprom-store.h"
 
 void uart_init(void)
 {
@@ -37,8 +40,30 @@ uint16_t readInternalTemperatur (volatile uint16_t supplyVoltage);
 /* Main - a simple test program*/
 int main( void )
 {
+	//LED - output
+	DDRB |= ((1 << PB0) );
 	
 	uart_init();
+	
+	USART0_Transmit_String("\n\rDeleted EEPROM, wait for input \n\r");
+	USART0_Receive();
+
+	
+	for (int i = 0 ; i < 517; i++){
+		write_next_value(i/3);
+	}
+ 
+    eeprom_reset_current_address ();
+    int nextValue = 0;
+    do{
+	  nextValue = read_next_value();
+	 	USART0_Transmit_String("\n\r");
+	  USART0_Transmit_Integer(nextValue);
+	} while (nextValue != -1);
+	
+	USART0_Transmit_String("End of EEPROM... \n\r");
+	USART0_Receive();
+	
 	//DDRA |= 0xFF;
 	DDRB |= ((1 << PB0) );
 	initADC();
@@ -47,6 +72,7 @@ int main( void )
 	
 	while(1)
 	{
+		PORTB ^= (1<<PB0);
 		uint16_t supplyVolt = measure_supply();
 		USART0_Transmit_String("\n\r");
 		USART0_Transmit_String("U=");
@@ -107,7 +133,7 @@ void USART0_Transmit( unsigned char data )
 int blnk(void)
 {
 	
-	DDRB |= ((1 << PB0) );
+	
 	
 	while (1)
 	{
