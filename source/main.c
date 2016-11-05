@@ -7,7 +7,9 @@
 #include <stdint.h>
 #include <util/setbaud.h>
 #include <util/delay.h>
+#include <avr/sleep.h>
 
+#include "adc-measurements.h"
 #include "eeprom-store.h"
 
 void uart_init(void)
@@ -24,18 +26,19 @@ void uart_init(void)
 
 }
 /* Prototypes */
-uint16_t measure_supply(void);
 void USART0_Init( unsigned int baudrate );
 unsigned char USART0_Receive( void );
 void USART0_Transmit( unsigned char data );
-uint16_t readADCsamples( uint8_t nsamples );
-uint16_t readSingleADC(void);
-uint16_t readADC (volatile uint8_t channel) ;
 void OutputFloat(char *data);
 void USART0_Transmit_Integer(uint16_t value);
-uint16_t readTemperatur (volatile uint16_t supplyVoltage);
 
-uint16_t readInternalTemperatur (volatile uint16_t supplyVoltage);
+
+void power_down(){
+	set_sleep_mode(SLEEP_MODE_PWR_DOWN);
+	sleep_enable();	
+	sleep_cpu();
+	sleep_disable();
+}
 
 /* Main - a simple test program*/
 int main( void )
@@ -45,15 +48,15 @@ int main( void )
 	
 	uart_init();
 	
-	initADC();
+	init_adc();
 	
-	uint16_t supplyVolt = measure_supply();
+	uint16_t supplyVolt = measure_supply_voltage();
 	
 	if (supplyVolt < 4500){
 		while(1) {
 			
 			PORTB ^= (1<<PB0);
-			uint16_t temp = readTemperatur(measure_supply());
+			uint16_t temp = measure_temperature_sensor(measure_supply_voltage());
 			uint8_t write = (temp / 10.0);
 			write_next_value(write);
 			PORTB ^= (1<<PB0);
@@ -61,10 +64,7 @@ int main( void )
 			if (is_buffer_full()){
 				while(1)
 				{
-					_delay_ms(1000);
-					PORTB ^= (1<<PB0);
-					_delay_ms(20);
-					PORTB ^= (1<<PB0);
+					power_down();
 				}
 			}
 			
@@ -150,171 +150,4 @@ void USART0_Transmit( unsigned char data )
 	
 }
 
-int blnk(void)
-{
-	
-	
-	
-	while (1)
-	{
-		PORTB |= (1<<PB0);
-		_delay_ms(1400);
-		PORTB &= ~(1 << PB0);
-		_delay_ms(1400);
-	}
-}
 
-
-
-
-
-void initADC (){
-
-
-	//ADC enabled, prescaler
-	ADCSRA =
-	(1 << ADEN)  |
-	(0 << ADPS2) |
-	(1 << ADPS1) |
-	(1 << ADPS0);
-	
-}
-
-
-uint16_t readTemperatur (volatile uint16_t supplyVoltage) {
-	ADMUXB=
-	(0 << REFS2) |
-	(0 << REFS1) |
-	(0 << REFS0) |
-	(0 << GSEL1) |
-	(0 << GSEL0);
-
-
-	ADMUXA =
-	(0 << MUX3)  |
-	(0 << MUX2)  |
-	(0 << MUX1)  |
-	(0 << MUX0);
-	
-	uint16_t measure = readADCsamples(5);
-	return (((measure / 1023.0) * supplyVoltage / 1000.0) - 2.7315) * 1000.0;
-}
-
-
-
-uint16_t readInternalTemperatur (volatile uint16_t supplyVoltage) {
-	ADMUXB=
-	(0 << REFS2) |
-	(0 << REFS1) |
-	(0 << REFS0) |
-	(0 << GSEL1) |
-	(0 << GSEL0);
-
-
-	ADMUXA =
-	(1 << MUX3)  |
-	(1 << MUX2)  |
-	(1 << MUX1)  |
-	(1 << MUX0);
-	
-	uint16_t measure = readADCsamples(5);
-	return (((measure / 1023.0) * supplyVoltage / 1000.0) - 2.7315) * 100.0;
-}
-
-
-uint16_t readADC (volatile uint8_t channel) {
-	ADMUXB=
-	(0 << REFS2) |
-	(0 << REFS1) |
-	(0 << REFS0) |
-	(0 << GSEL1) |
-	(0 << GSEL0);
-	
-	switch (channel){
-		case 0: //Temp Sensor
-		ADMUXA =
-		(0 << MUX3)  |
-		(0 << MUX2)  |
-		(0 << MUX1)  |
-		(0 << MUX0);
-		return readADCsamples(3);
-		case 1: //Voltage
-		ADMUXA =
-		(0 << MUX3)  |
-		(0 << MUX2)  |
-		(0 << MUX1)  |
-		(1 << MUX0);
-		return readADCsamples(3);
-		case 2: //Voltage
-		ADMUXA =
-		(1 << MUX3)  |
-		(1 << MUX2)  |
-		(1 << MUX1)  |
-		(1 << MUX0);
-		return readADCsamples(3);
-		
-		default: //internal temp sensor
-		ADMUXA =
-		(1 << MUX3)  |
-		(1 << MUX2)  |
-		(0 << MUX1)  |
-		(0 << MUX0);
-		return readADCsamples(3);
-		
-	}
-	
-}
-
-
-uint16_t readADCsamples( uint8_t nsamples )
-{
-	uint32_t sum = 0;
-	_delay_us(500);
-	for (uint8_t i = 0; i < nsamples; ++i ) {
-		sum += readSingleADC( );
-	}
-	
-	return (uint16_t)( sum / nsamples );
-}
-
-
-// measure supply voltage in mV
-uint16_t measure_supply(void)
-{
-	ADMUXB= (0 << REFS2)|(0 << REFS1)|(0 << REFS0); //VCC as reference
-	ADMUXA= ((1 << MUX3)|(1 << MUX2)|(0 << MUX1)|(1 << MUX0)); // measure internal 1.1V
-
-	_delay_us(500);
-
-	uint32_t sum = 0;
-	uint8_t nsamples = 3;
-	_delay_us(500);
-	for (uint8_t i = 0; i < nsamples; ++i ) {
-		ADCSRA |= (1 << ADSC);        // start conversion
-		while (ADCSRA & (1 << ADSC)); // wait to finish
-		sum += (1100UL*1023/ADC);     // AVcc = Vbg/ADC*1023 = 1.1V*1023/ADC
-	}
-	
-	return (uint16_t)( sum / nsamples );
-	
-}
-
-
-/*
-* Do a single ADC read
-*/
-uint16_t readSingleADC(void)
-{
-	
-	uint8_t adc_lobyte; // to hold the low byte of the ADC register (ADCL)
-	uint16_t raw_adc;
-	
-	ADCSRA |= (1 << ADSC);         // start ADC measurement
-	while (ADCSRA & (1 << ADSC) ); // wait till conversion complete
-
-	// for 10-bit resolution:
-	adc_lobyte = ADCL; // get the sample value from ADCL
-	raw_adc = ADCH<<8 | adc_lobyte;   // add lobyte and hibyte
-
-	return raw_adc;
-}
