@@ -5,7 +5,7 @@
 
 void uart_init(void);
 
-void uart_transmit_integer(uint16_t value);
+void uart_transmit_integer(int32_t value);
 
 void uart_transmit_string(char *data);
 

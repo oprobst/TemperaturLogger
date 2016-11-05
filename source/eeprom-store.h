@@ -21,7 +21,7 @@ void write_next_value (int32_t value);
 /*
  * Read next byte in eeprom
  */
-uint64_t read_next_value (void);
+uint16_t read_next_value (void);
 
 /*
  * Return 1 if read or write came to the end of eeprom or last byte in read mode
@@ -43,7 +43,7 @@ void set_resolution (uint8_t res);
 uint8_t get_resolution ();
 
 void set_intervall (uint16_t value);
-uint16_t get_intervall ();
+uint16_t get_interval ();
 #endif
 
  

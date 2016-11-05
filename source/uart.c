@@ -8,6 +8,7 @@
 
 #include <util/setbaud.h>
 #include <avr/io.h>
+#include <stdio.h> 
 
 #include "uart.h"
 
@@ -28,10 +29,10 @@ void uart_init(void)
 
 
 
-void uart_transmit_integer(uint16_t value)
+void uart_transmit_integer(int32_t value)
 {
 	char data[16];
-	sprintf(data, "%d", value);
+	sprintf(data, "%ld", value);
 	uart_transmit_string(data);
 }
 

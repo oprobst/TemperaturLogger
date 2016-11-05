@@ -4,7 +4,7 @@
 
 void init_adc ();
 
-uint16_t measure_temperature_sensor (volatile uint16_t supplyVoltage);
+uint32_t measure_temperature_sensor (volatile uint16_t supplyVoltage);
 	
 uint16_t measure_internal_temperature ();
 

@@ -21,7 +21,7 @@ void init_adc (){
 }
 
 
-uint16_t measure_temperature_sensor (volatile uint16_t supplyVoltage) {
+uint32_t measure_temperature_sensor (volatile uint16_t supplyVoltage) {
 	ADMUXB=
 	(0 << REFS2) |
 	(0 << REFS1) |
@@ -37,7 +37,7 @@ uint16_t measure_temperature_sensor (volatile uint16_t supplyVoltage) {
 	(0 << MUX0);
 	
 	uint16_t measure = readADCsamples(5);
-	return (((measure / 1023.0) * supplyVoltage / 1000.0) - 2.7315) * 1000.0;
+	return (((measure / 1023.0) * supplyVoltage / 1000.0) - 2.7315) * 10000.0;
 }
 
 
