@@ -1,37 +1,17 @@
-#include <avr/io.h>
-
 #define F_CPU 1000000
 #define BAUD 4800
+
 #define MEASUREMENT_INTERVALL 2000 * 60 //every two minutes
 
 #include <stdint.h>
-#include <util/setbaud.h>
+
 #include <util/delay.h>
 #include <avr/sleep.h>
 
 #include "adc-measurements.h"
 #include "eeprom-store.h"
-
-void uart_init(void)
-{
-	REMAP = (1 << U0MAP);
-	
-	UBRR0H = UBRRH_VALUE;
-	UBRR0L = UBRRL_VALUE;
-	
-	UCSR0A &= ~(1 << U2X0);
-	
-	UCSR0B = ( ( 1 << RXEN0 ) | ( 1 << TXEN0 ) );
-	UCSR0C = (1<<USBS0)|(1<<UCSZ01)|(1<<UCSZ00);
-
-}
-/* Prototypes */
-void USART0_Init( unsigned int baudrate );
-unsigned char USART0_Receive( void );
-void USART0_Transmit( unsigned char data );
-void OutputFloat(char *data);
-void USART0_Transmit_Integer(uint16_t value);
-
+#include "uart.h"
+ 
 
 void power_down(){
 	set_sleep_mode(SLEEP_MODE_PWR_DOWN);
@@ -77,20 +57,20 @@ int main( void )
 		while(1)
 		{
 			
-			USART0_Transmit_String("Ready for sending EEPROM! \n\r");
-			USART0_Receive();
+			uart_transmit_string("Ready for sending EEPROM! \n\r");
+			uart_receive();
 			int nextValue = 0;
 			do{
 				nextValue = read_next_value();
 				if (nextValue != -1){
-					USART0_Transmit_String("\n\r");
-					USART0_Transmit_Integer(nextValue);
+					uart_transmit_string("\n\r");
+					uart_transmit_integer(nextValue);
 				}
 			} while (nextValue != -1);
 			
-			USART0_Transmit_String(" \n\r End of EEPROM... \n\r");
+			uart_transmit_string(" \n\r End of EEPROM... \n\r");
 			eeprom_reset_current_address();
-			USART0_Receive();
+			uart_receive();
 			
 			/*
 			USART0_Transmit_String("\n\r");
@@ -120,34 +100,5 @@ int main( void )
 }
 
 
-
-void USART0_Transmit_Integer(uint16_t value)
-{
-	char data[16];
-	sprintf(data, "%d", value);
-	USART0_Transmit_String(data);
-}
-
-void USART0_Transmit_String(char *data)
-{
-	while( *data != '\0' )
-	USART0_Transmit (*data++);
-	
-}
-
-/* Read and write functions */
-unsigned char USART0_Receive( void )
-{
-	while ( !(UCSR0A & (1<<RXC0)) )	;
-	return UDR0;
-}
-
-void USART0_Transmit( unsigned char data )
-{
-	while ( !(UCSR0A & (1<<UDRE0)) );
-	
-	UDR0 = data;
-	
-}
 
 
