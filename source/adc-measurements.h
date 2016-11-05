@@ -1,8 +1,8 @@
-#ifndef ADC-MEASUREMENTS_H_
-#define ADC-MEASUREMENTS_H_
+#ifndef ADCMEASUREMENTS_H_
+#define ADCMEASUREMENTS_H_
 
 
-void init_adc (){
+void init_adc ();
 
 uint16_t measure_temperature_sensor (volatile uint16_t supplyVoltage);
 	
@@ -12,4 +12,4 @@ uint16_t measure_supply_voltage(void);
 
 void init_adc ();
 
-#endif /* ADC-MEASUREMENTS_H_ */
+#endif /* ADCMEASUREMENTS_H_ */
