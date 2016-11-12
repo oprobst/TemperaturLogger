@@ -61,8 +61,7 @@ int main( void )
 	if (supplyVolt < 4500){
 		// Set UART pins to 0, to prevent reverse voltage from ft232 VCC pin (~ 1V if RX/TX = Hi)
 		DDRA |= (1 << PA1 | 1 << PA2);
-		PORTA |= ((1 << PA1) );
-		PORTA |= ((1 << PA2) );
+		PORTA |= (0 << PA1  | 0 << PA2);
 		measure_mode();
 	} else{
 		uart_init();
