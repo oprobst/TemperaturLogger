@@ -15820,7 +15820,7 @@ Created 2014-07-09, Karrer Zheng&lt;br&gt;
 <part name="GND2" library="supply1" deviceset="GND" device=""/>
 <part name="VCC" library="supply1" deviceset="VCC" device=""/>
 <part name="LED3" library="led" deviceset="LED" device="CHIPLED_0603" value="lc green"/>
-<part name="R3" library="eagle-ltspice" deviceset="R" device="R1206" value="1,8k"/>
+<part name="R3" library="eagle-ltspice" deviceset="R" device="R1206" value="1k8"/>
 <part name="GND3" library="supply1" deviceset="GND" device=""/>
 <part name="GND11" library="supply1" deviceset="GND" device=""/>
 <part name="UCC1" library="supply1" deviceset="VCC" device=""/>
@@ -15835,8 +15835,8 @@ Created 2014-07-09, Karrer Zheng&lt;br&gt;
 <part name="GND7" library="supply1" deviceset="GND" device=""/>
 <part name="C3" library="rcl" deviceset="C-EU" device="C1206K" value="4,7uF"/>
 <part name="GND8" library="supply1" deviceset="GND" device=""/>
-<part name="R5" library="resistor" deviceset="R-EU_" device="R1206"/>
-<part name="R6" library="resistor" deviceset="R-EU_" device="R1206"/>
+<part name="R5" library="resistor" deviceset="R-EU_" device="R1206" value="680k"/>
+<part name="R6" library="resistor" deviceset="R-EU_" device="R1206" value="220k"/>
 <part name="GND12" library="supply1" deviceset="GND" device=""/>
 <part name="L1" library="EagleLibrary_Wuerth_Elektronik_eiSos_rev16a" deviceset="WE-TPC" device="_3816" value="4,7uH"/>
 <part name="C4" library="resistor" deviceset="C-EU" device="C0805" value="680nF"/>
@@ -15847,8 +15847,8 @@ Created 2014-07-09, Karrer Zheng&lt;br&gt;
 <part name="U3" library="SparkFun" deviceset="FT232RL" device="SSOP"/>
 <part name="GND14" library="SparkFun" deviceset="GND" device=""/>
 <part name="GND15" library="SparkFun" deviceset="GND" device=""/>
-<part name="R13" library="rcl" deviceset="R-EU_" device="R1206" value="1K"/>
-<part name="R14" library="rcl" deviceset="R-EU_" device="R1206" value="1K"/>
+<part name="R13" library="rcl" deviceset="R-EU_" device="R1206" value="1k8"/>
+<part name="R14" library="rcl" deviceset="R-EU_" device="R1206" value="1k8"/>
 <part name="LED4" library="SparkFun" deviceset="LED" device="0603" value="Red"/>
 <part name="LED5" library="SparkFun" deviceset="LED" device="0603" value="Green"/>
 <part name="U$5" library="SparkFun" deviceset="5V" device=""/>
@@ -15949,7 +15949,7 @@ Created 2014-07-09, Karrer Zheng&lt;br&gt;
 <instance part="C8" gate="G$1" x="96.52" y="-35.56"/>
 <instance part="U$3" gate="G$1" x="22.86" y="-40.64" rot="MR0"/>
 <instance part="U$4" gate="G$1" x="15.24" y="-43.18" rot="MR0"/>
-<instance part="Q2" gate="G$1" x="-22.86" y="-12.7"/>
+<instance part="Q2" gate="G$1" x="-22.86" y="-7.62" rot="MR180"/>
 <instance part="R2" gate="G$1" x="-53.34" y="-20.32" rot="R270"/>
 <instance part="GND1" gate="1" x="-53.34" y="-33.02"/>
 <instance part="U$6" gate="G$1" x="-53.34" y="-7.62" rot="MR0"/>
@@ -16088,8 +16088,7 @@ Created 2014-07-09, Karrer Zheng&lt;br&gt;
 <net name="VSUPPLY" class="0">
 <segment>
 <wire x1="0" y1="7.62" x2="-2.54" y2="7.62" width="0.1524" layer="91"/>
-<wire x1="-20.32" y1="-7.62" x2="-20.32" y2="-5.08" width="0.1524" layer="91"/>
-<wire x1="-20.32" y1="-5.08" x2="-20.32" y2="7.62" width="0.1524" layer="91"/>
+<wire x1="-20.32" y1="-2.54" x2="-20.32" y2="7.62" width="0.1524" layer="91"/>
 <wire x1="-20.32" y1="7.62" x2="-2.54" y2="7.62" width="0.1524" layer="91"/>
 <wire x1="-2.54" y1="7.62" x2="0" y2="7.62" width="0.1524" layer="91"/>
 <wire x1="-2.54" y1="7.62" x2="0" y2="7.62" width="0.1524" layer="91"/>
@@ -16114,9 +16113,9 @@ Created 2014-07-09, Karrer Zheng&lt;br&gt;
 <pinref part="L1" gate="G$1" pin="1"/>
 <pinref part="IC1" gate="IC" pin="PA7(ADC7/ICP/OC0B/PCINT7)"/>
 <wire x1="48.26" y1="7.62" x2="0" y2="7.62" width="0.1524" layer="91"/>
-<pinref part="Q2" gate="G$1" pin="S"/>
 <wire x1="-99.06" y1="48.26" x2="-99.06" y2="7.62" width="0.1524" layer="91"/>
 <wire x1="-99.06" y1="7.62" x2="-20.32" y2="7.62" width="0.1524" layer="91"/>
+<pinref part="Q2" gate="G$1" pin="D"/>
 </segment>
 </net>
 <net name="N$32" class="0">
@@ -16392,10 +16391,10 @@ Created 2014-07-09, Karrer Zheng&lt;br&gt;
 <segment>
 <pinref part="U$1" gate="G$1" pin="P$1"/>
 <wire x1="-20.32" y1="-27.8892" x2="-20.32" y2="-20.32" width="0.1524" layer="91"/>
-<pinref part="Q2" gate="G$1" pin="D"/>
 <pinref part="C9" gate="G$1" pin="2"/>
-<wire x1="-20.32" y1="-20.32" x2="-20.32" y2="-17.78" width="0.1524" layer="91"/>
 <wire x1="-20.32" y1="-20.32" x2="-22.86" y2="-20.32" width="0.1524" layer="91"/>
+<pinref part="Q2" gate="G$1" pin="S"/>
+<wire x1="-20.32" y1="-12.7" x2="-20.32" y2="-20.32" width="0.1524" layer="91"/>
 <junction x="-20.32" y="-20.32"/>
 </segment>
 </net>
