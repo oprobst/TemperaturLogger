@@ -2,6 +2,9 @@
 #define BAUD 4800
 #define CALIBRATION -150
 
+#define POWER_HI PORTB |= (1<<PB1);
+#define POWER_LO PORTB |= (0<<PB1);
+
 //#define MEASUREMENT_INTERVALL 2000 * 60 //every two minutes
 #define MEASUREMENT_INTERVALL 1000 //every second
 
@@ -33,9 +36,10 @@ ISR (TIMER1_COMPA_vect) {
 int main( void )
 {
 	
-	
-	//LED - output
-	DDRB |= ((1 << PB0) );
+	//Outputs:
+	//PB0: LED 
+	//PB1: 5V Power enable 
+	DDRB |= ((1 << PB0) | 1 << PB1) );
 	
 	set_start_temperature(0);
 	set_end_temperature(30);
@@ -88,13 +92,14 @@ void measure_mode(){
 	while(1) {
 		
 		if (secondsSinceLastMeasurement >= get_interval()){
+			POWER_HI
 			PORTB ^= (1<<PB0);
 			ACSR1A |= ((0 << ACD1) ); //enable ac
 			ACSR0A |= ((0 << ACD1) ); //enable ac
 			uint16_t temp = measure_temperature_sensor(measure_supply_voltage()) + CALIBRATION;			
 			uint32_t write = to_units(temp);		
 		    write_next_value(write);
-			
+			POWER_LO
 			PORTB ^= (1<<PB0);
 		/* DELETEME
 		uart_transmit_string("\r\n");
