@@ -10,14 +10,13 @@ uint16_t readSingleADC(void);
 
 void init_adc (){
 
-
 	//ADC enabled, prescaler
 	ADCSRA =
 	(1 << ADEN)  |
 	(0 << ADPS2) |
 	(1 << ADPS1) |
 	(1 << ADPS0);
-	
+		
 }
 
 

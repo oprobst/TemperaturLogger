@@ -71,6 +71,8 @@ void power_down(){
 }
 
 void idle(){
+	ACSR1A |= ((1 << ACD1) ); //disable ac
+	ACSR1A |= ((1 << ACD1) ); //disable ac
 	set_sleep_mode(SLEEP_MODE_IDLE);
 	sleep_enable();
 	sleep_cpu();
@@ -87,6 +89,8 @@ void measure_mode(){
 		
 		if (secondsSinceLastMeasurement >= get_interval()){
 			PORTB ^= (1<<PB0);
+			ACSR1A |= ((0 << ACD1) ); //enable ac
+			ACSR0A |= ((0 << ACD1) ); //enable ac
 			uint16_t temp = measure_temperature_sensor(measure_supply_voltage()) + CALIBRATION;			
 			uint32_t write = to_units(temp);		
 		    write_next_value(write);
