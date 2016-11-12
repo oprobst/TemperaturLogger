@@ -15999,6 +15999,7 @@ General-purpose diode for high-speed switching</description>
 <part name="P+1" library="supply1" deviceset="VCC" device=""/>
 <part name="R8" library="resistor" deviceset="R-EU_" device="R1206" value="68k"/>
 <part name="GND13" library="supply1" deviceset="GND" device=""/>
+<part name="U$13" library="0liver" deviceset="PIN" device="1.27"/>
 </parts>
 <sheets>
 <sheet>
@@ -16095,6 +16096,7 @@ General-purpose diode for high-speed switching</description>
 <instance part="P+1" gate="VCC" x="-48.26" y="2.54"/>
 <instance part="R8" gate="G$1" x="-76.2" y="30.48" rot="R90"/>
 <instance part="GND13" gate="1" x="-76.2" y="15.24"/>
+<instance part="U$13" gate="G$1" x="149.86" y="10.16" rot="R270"/>
 </instances>
 <busses>
 </busses>
@@ -16583,6 +16585,16 @@ General-purpose diode for high-speed switching</description>
 <wire x1="-76.2" y1="38.1" x2="-71.12" y2="38.1" width="0.1524" layer="91"/>
 <wire x1="-76.2" y1="38.1" x2="-76.2" y2="35.56" width="0.1524" layer="91"/>
 <junction x="-76.2" y="38.1"/>
+</segment>
+</net>
+<net name="CK" class="0">
+<segment>
+<pinref part="IC1" gate="IC" pin="PB2(CKOUT/INT0/OC0A/PCINT10)"/>
+<wire x1="119.38" y1="20.32" x2="142.24" y2="20.32" width="0.1524" layer="91"/>
+<wire x1="142.24" y1="20.32" x2="142.24" y2="10.16" width="0.1524" layer="91"/>
+<pinref part="U$13" gate="G$1" pin="P$1"/>
+<wire x1="145.8" y1="10.16" x2="142.24" y2="10.16" width="0.1524" layer="91"/>
+<label x="144.78" y="10.16" size="1.778" layer="95"/>
 </segment>
 </net>
 </nets>

@@ -1,6 +1,5 @@
 #define F_CPU 1000000
 #define BAUD 4800
-#define CALIBRATION -150
 
 #define POWER_HI PORTB |= (1<<PB1);
 #define POWER_LO PORTB |= (0<<PB1);
@@ -17,6 +16,7 @@
 #include "eeprom-store.h"
 #include "uart.h"
 #include "temperatur-converter.h"
+#include "tsic.h"
  
 void power_down();
 void measure_mode();
@@ -38,15 +38,15 @@ int main( void )
 	
 	//Outputs:
 	//PB0: LED 
-	//PB1: 5V Power enable 
-	DDRB |= ((1 << PB0) | 1 << PB1) );
+	//PB1: 5V supply power enable 
+	DDRB |= (1 << PB0 | 1 << PB1);
+	//PA3: Power up supply sensor
+	DDRA |= (1 << PA3);
 	
 	set_start_temperature(0);
 	set_end_temperature(30);
 	set_resolution(2);
 	set_intervall(1);
-	
-	uart_init();
 	
 	init_adc();
 	init_interrupts ();
@@ -59,8 +59,13 @@ int main( void )
 	//measure_mode(); //outcomment me to debug on pc
 		    
 	if (supplyVolt < 4500){
+		// Set UART pins to 0, to prevent reverse voltage from ft232 VCC pin (~ 1V if RX/TX = Hi)
+		DDRA |= (1 << PA1 | 1 << PA2);
+		PORTA |= ((1 << PA1) );
+		PORTA |= ((1 << PA2) );
 		measure_mode();
 	} else{
+		uart_init();
 	    output_mode ();
 	}
 }
@@ -96,7 +101,7 @@ void measure_mode(){
 			PORTB ^= (1<<PB0);
 			ACSR1A |= ((0 << ACD1) ); //enable ac
 			ACSR0A |= ((0 << ACD1) ); //enable ac
-			uint16_t temp = measure_temperature_sensor(measure_supply_voltage()) + CALIBRATION;			
+			uint16_t temp = measure_temperature_sensor(measure_supply_voltage());			
 			uint32_t write = to_units(temp);		
 		    write_next_value(write);
 			POWER_LO

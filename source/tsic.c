@@ -15,8 +15,16 @@ Vcc-Pin  ---|________|
  Zwischen VCC und Masse wird ein 100nF Kondensator angeschlossen und der Pin von VCC läuft über einen 220 Ohm Widerstand (wie im Datenblatt beschrieben).
 
  */
-#include "tsic.h"
 
+#ifndef F_CPU
+#define F_CPU 1000000
+#endif
+
+#include <stdint.h>
+#include <util/delay.h>
+
+#include "tsic.h"
+ 
 void TSIC_INIT(void) {
   TSIC_PORT_DDR_Power |= TSCI_POWER_PIN;    // Ausgang
   TSIC_PORT_DDR &= ~TSIC_SIGNAL_PIN;      // Eingang
@@ -36,14 +44,14 @@ uint8_t readSens(uint16_t *temp_value){
   while (TSIC_SIGNAL_LOW) {    // wait for rising edge
     strobelength++;
     timeout++;
-    Abbruch();
+    ABORT();
   }
   for (uint8_t i=0; i<9; i++) {
     // Wait for bit start
     timeout = 0;
     while (TSIC_SIGNAL_HIGH) { // wait for falling edge
       timeout++;
-      Abbruch();
+      ABORT();
     }
     // Delay strobe length
     timeout = 0;
@@ -52,7 +60,7 @@ uint8_t readSens(uint16_t *temp_value){
     while (strobetemp--) {
       timeout++;
       dummy++;
-      Abbruch();
+      ABORT();
     }
     *temp_value <<= 1;
     // Read bit
@@ -63,7 +71,7 @@ uint8_t readSens(uint16_t *temp_value){
     timeout = 0;
     while (TSIC_SIGNAL_LOW) {    // wait for rising edge
       timeout++;
-      Abbruch();
+      ABORT();
     }
   }
   return 1;
@@ -87,7 +95,7 @@ uint8_t getTSicTemp(uint16_t *temp_value16) {
     uint16_t temp_value2 = 0;
 
     TSIC_ON();
-    _delay_us(200);     // wait for stabilization
+    _delay_us(500);     // wait for stabilization
 
     readSens(&temp_value1);      // 1. Byte einlesen
     readSens(&temp_value2);      // 2. Byte einlesen
