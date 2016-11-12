@@ -57,17 +57,41 @@
 <layer number="95" name="Names" color="7" fill="1" visible="yes" active="yes"/>
 <layer number="96" name="Values" color="7" fill="1" visible="yes" active="yes"/>
 <layer number="97" name="Info" color="7" fill="1" visible="yes" active="yes"/>
+<layer number="98" name="Guide" color="6" fill="1" visible="yes" active="yes"/>
 <layer number="99" name="SpiceOrder" color="5" fill="1" visible="yes" active="yes"/>
 <layer number="100" name="Muster" color="7" fill="1" visible="no" active="no"/>
+<layer number="101" name="Patch_Top" color="12" fill="4" visible="yes" active="yes"/>
+<layer number="102" name="Vscore" color="7" fill="1" visible="yes" active="yes"/>
+<layer number="103" name="tMap" color="7" fill="1" visible="yes" active="yes"/>
+<layer number="104" name="Name" color="7" fill="1" visible="yes" active="yes"/>
+<layer number="105" name="tPlate" color="7" fill="1" visible="yes" active="yes"/>
+<layer number="106" name="bPlate" color="7" fill="1" visible="yes" active="yes"/>
+<layer number="107" name="Crop" color="7" fill="1" visible="yes" active="yes"/>
+<layer number="108" name="fp8" color="7" fill="1" visible="yes" active="yes"/>
+<layer number="109" name="fp9" color="7" fill="1" visible="yes" active="yes"/>
+<layer number="110" name="fp0" color="7" fill="1" visible="yes" active="yes"/>
+<layer number="111" name="mech2" color="13" fill="1" visible="yes" active="yes"/>
+<layer number="112" name="plate" color="7" fill="1" visible="yes" active="yes"/>
+<layer number="113" name="gridlay" color="15" fill="1" visible="yes" active="yes"/>
+<layer number="114" name="doc_mirror" color="7" fill="1" visible="yes" active="yes"/>
+<layer number="115" name="case" color="11" fill="1" visible="yes" active="yes"/>
+<layer number="116" name="Patch_BOT" color="9" fill="4" visible="yes" active="yes"/>
 <layer number="117" name="mPads" color="7" fill="1" visible="no" active="no"/>
 <layer number="118" name="mVias" color="7" fill="1" visible="no" active="no"/>
 <layer number="119" name="mUnrouted" color="7" fill="1" visible="no" active="no"/>
 <layer number="120" name="mDimension" color="7" fill="1" visible="no" active="no"/>
+<layer number="121" name="_tsilk" color="7" fill="1" visible="yes" active="yes"/>
+<layer number="122" name="_bsilk" color="7" fill="1" visible="yes" active="yes"/>
+<layer number="123" name="tTestmark" color="7" fill="1" visible="yes" active="yes"/>
+<layer number="124" name="bTestmark" color="7" fill="1" visible="yes" active="yes"/>
+<layer number="125" name="_tNames" color="7" fill="1" visible="yes" active="yes"/>
 <layer number="126" name="mbNames" color="7" fill="1" visible="no" active="no"/>
 <layer number="127" name="mtValues" color="7" fill="1" visible="no" active="no"/>
 <layer number="128" name="mbValues" color="7" fill="1" visible="no" active="no"/>
 <layer number="129" name="mtStop" color="7" fill="1" visible="no" active="no"/>
 <layer number="130" name="mbStop" color="7" fill="1" visible="no" active="no"/>
+<layer number="131" name="tAdjust" color="7" fill="1" visible="yes" active="yes"/>
+<layer number="132" name="bAdjust" color="7" fill="1" visible="yes" active="yes"/>
 <layer number="133" name="mtFinish" color="7" fill="1" visible="no" active="no"/>
 <layer number="134" name="mbFinish" color="7" fill="1" visible="no" active="no"/>
 <layer number="135" name="mtGlue" color="7" fill="1" visible="no" active="no"/>
@@ -79,21 +103,42 @@
 <layer number="141" name="mtRestrict" color="7" fill="1" visible="no" active="no"/>
 <layer number="142" name="mbRestrict" color="7" fill="1" visible="no" active="no"/>
 <layer number="143" name="mvRestrict" color="7" fill="1" visible="no" active="no"/>
+<layer number="144" name="Drill_legend" color="7" fill="1" visible="yes" active="yes"/>
 <layer number="145" name="mHoles" color="7" fill="1" visible="no" active="no"/>
 <layer number="146" name="mMilling" color="7" fill="1" visible="no" active="no"/>
 <layer number="147" name="mMeasures" color="7" fill="1" visible="no" active="no"/>
 <layer number="148" name="mDocument" color="7" fill="1" visible="no" active="no"/>
 <layer number="149" name="mReference" color="7" fill="1" visible="no" active="no"/>
+<layer number="150" name="Notes" color="7" fill="1" visible="yes" active="yes"/>
+<layer number="151" name="HeatSink" color="7" fill="1" visible="yes" active="yes"/>
 <layer number="152" name="mbDocu" color="7" fill="1" visible="no" active="no"/>
+<layer number="153" name="plugs" color="3" fill="1" visible="yes" active="yes"/>
+<layer number="154" name="panel" color="9" fill="1" visible="yes" active="yes"/>
+<layer number="155" name="Comment" color="13" fill="1" visible="yes" active="yes"/>
 <layer number="191" name="mNets" color="7" fill="1" visible="no" active="no"/>
 <layer number="192" name="mBusses" color="7" fill="1" visible="no" active="no"/>
 <layer number="193" name="mPins" color="7" fill="1" visible="no" active="no"/>
 <layer number="194" name="mSymbols" color="7" fill="1" visible="no" active="no"/>
 <layer number="195" name="mNames" color="7" fill="1" visible="no" active="no"/>
 <layer number="196" name="mValues" color="7" fill="1" visible="no" active="no"/>
+<layer number="199" name="Contour" color="7" fill="1" visible="yes" active="yes"/>
 <layer number="200" name="200bmp" color="1" fill="10" visible="no" active="no"/>
 <layer number="201" name="201bmp" color="2" fill="1" visible="no" active="no"/>
 <layer number="202" name="202bmp" color="3" fill="1" visible="no" active="no"/>
+<layer number="203" name="203bmp" color="4" fill="10" visible="yes" active="yes"/>
+<layer number="204" name="204bmp" color="5" fill="10" visible="yes" active="yes"/>
+<layer number="205" name="205bmp" color="6" fill="10" visible="yes" active="yes"/>
+<layer number="206" name="206bmp" color="7" fill="10" visible="yes" active="yes"/>
+<layer number="207" name="207bmp" color="8" fill="10" visible="yes" active="yes"/>
+<layer number="208" name="208bmp" color="9" fill="10" visible="yes" active="yes"/>
+<layer number="209" name="209bmp" color="7" fill="1" visible="yes" active="yes"/>
+<layer number="210" name="210bmp" color="7" fill="1" visible="yes" active="yes"/>
+<layer number="211" name="211bmp" color="7" fill="1" visible="yes" active="yes"/>
+<layer number="212" name="212bmp" color="7" fill="1" visible="yes" active="yes"/>
+<layer number="213" name="213bmp" color="7" fill="1" visible="yes" active="yes"/>
+<layer number="214" name="214bmp" color="7" fill="1" visible="yes" active="yes"/>
+<layer number="215" name="215bmp" color="7" fill="1" visible="yes" active="yes"/>
+<layer number="216" name="216bmp" color="7" fill="1" visible="yes" active="yes"/>
 <layer number="217" name="217bmp" color="18" fill="1" visible="no" active="no"/>
 <layer number="218" name="218bmp" color="19" fill="1" visible="no" active="no"/>
 <layer number="219" name="219bmp" color="20" fill="1" visible="no" active="no"/>
@@ -102,8 +147,16 @@
 <layer number="222" name="222bmp" color="23" fill="1" visible="no" active="no"/>
 <layer number="223" name="223bmp" color="24" fill="1" visible="no" active="no"/>
 <layer number="224" name="224bmp" color="25" fill="1" visible="no" active="no"/>
+<layer number="225" name="225bmp" color="26" fill="10" visible="no" active="yes"/>
+<layer number="226" name="226bmp" color="27" fill="10" visible="no" active="yes"/>
+<layer number="227" name="227bmp" color="28" fill="10" visible="no" active="yes"/>
+<layer number="228" name="228bmp" color="29" fill="10" visible="no" active="yes"/>
+<layer number="229" name="229bmp" color="30" fill="10" visible="no" active="yes"/>
+<layer number="230" name="230bmp" color="31" fill="10" visible="no" active="yes"/>
+<layer number="231" name="231bmp" color="32" fill="10" visible="no" active="yes"/>
 <layer number="250" name="Descript" color="3" fill="1" visible="no" active="no"/>
 <layer number="251" name="SMDround" color="12" fill="11" visible="no" active="no"/>
+<layer number="254" name="cooling" color="7" fill="1" visible="yes" active="yes"/>
 </layers>
 <schematic xreflabel="%F%N/%S.%C%R" xrefpart="/%S.%C%R">
 <libraries>
@@ -15801,6 +15854,75 @@ Created 2014-07-09, Karrer Zheng&lt;br&gt;
 </deviceset>
 </devicesets>
 </library>
+<library name="diode">
+<description>&lt;b&gt;Diodes&lt;/b&gt;&lt;p&gt;
+Based on the following sources:
+&lt;ul&gt;
+&lt;li&gt;Motorola : www.onsemi.com
+&lt;li&gt;Fairchild : www.fairchildsemi.com
+&lt;li&gt;Philips : www.semiconductors.com
+&lt;li&gt;Vishay : www.vishay.de
+&lt;/ul&gt;
+&lt;author&gt;Created by librarian@cadsoft.de&lt;/author&gt;</description>
+<packages>
+<package name="SOT23">
+<description>&lt;B&gt;DIODE&lt;/B&gt;</description>
+<wire x1="1.4224" y1="0.6604" x2="1.4224" y2="-0.6604" width="0.1524" layer="51"/>
+<wire x1="1.4224" y1="-0.6604" x2="-1.4224" y2="-0.6604" width="0.1524" layer="51"/>
+<wire x1="-1.4224" y1="-0.6604" x2="-1.4224" y2="0.6604" width="0.1524" layer="51"/>
+<wire x1="-1.4224" y1="0.6604" x2="1.4224" y2="0.6604" width="0.1524" layer="51"/>
+<wire x1="-1.4224" y1="-0.1524" x2="-1.4224" y2="0.6604" width="0.1524" layer="21"/>
+<wire x1="-1.4224" y1="0.6604" x2="-0.8636" y2="0.6604" width="0.1524" layer="21"/>
+<wire x1="1.4224" y1="0.6604" x2="1.4224" y2="-0.1524" width="0.1524" layer="21"/>
+<wire x1="0.8636" y1="0.6604" x2="1.4224" y2="0.6604" width="0.1524" layer="21"/>
+<smd name="3" x="0" y="1.1" dx="1" dy="1.4" layer="1"/>
+<smd name="2" x="0.95" y="-1.1" dx="1" dy="1.4" layer="1"/>
+<smd name="1" x="-0.95" y="-1.1" dx="1" dy="1.4" layer="1"/>
+<text x="-1.905" y="1.905" size="1.27" layer="25">&gt;NAME</text>
+<text x="-1.905" y="-3.175" size="1.27" layer="27">&gt;VALUE</text>
+<rectangle x1="-0.2286" y1="0.7112" x2="0.2286" y2="1.2954" layer="51"/>
+<rectangle x1="0.7112" y1="-1.2954" x2="1.1684" y2="-0.7112" layer="51"/>
+<rectangle x1="-1.1684" y1="-1.2954" x2="-0.7112" y2="-0.7112" layer="51"/>
+</package>
+</packages>
+<symbols>
+<symbol name="SCHOTTKY">
+<wire x1="-1.27" y1="-1.27" x2="1.27" y2="0" width="0.254" layer="94"/>
+<wire x1="1.27" y1="0" x2="-1.27" y2="1.27" width="0.254" layer="94"/>
+<wire x1="1.905" y1="1.27" x2="1.27" y2="1.27" width="0.254" layer="94"/>
+<wire x1="1.27" y1="1.27" x2="1.27" y2="0" width="0.254" layer="94"/>
+<wire x1="-1.27" y1="1.27" x2="-1.27" y2="-1.27" width="0.254" layer="94"/>
+<wire x1="1.27" y1="0" x2="1.27" y2="-1.27" width="0.254" layer="94"/>
+<wire x1="1.905" y1="1.27" x2="1.905" y2="1.016" width="0.254" layer="94"/>
+<wire x1="1.27" y1="-1.27" x2="0.635" y2="-1.27" width="0.254" layer="94"/>
+<wire x1="0.635" y1="-1.016" x2="0.635" y2="-1.27" width="0.254" layer="94"/>
+<text x="-2.286" y="1.905" size="1.778" layer="95">&gt;NAME</text>
+<text x="-2.286" y="-3.429" size="1.778" layer="96">&gt;VALUE</text>
+<pin name="A" x="-2.54" y="0" visible="off" length="short" direction="pas"/>
+<pin name="C" x="2.54" y="0" visible="off" length="short" direction="pas" rot="R180"/>
+</symbol>
+</symbols>
+<devicesets>
+<deviceset name="BAS70" prefix="D">
+<description>&lt;b&gt;Silicon Schottky Diodes&lt;/b&gt;&lt;p&gt;
+General-purpose diode for high-speed switching</description>
+<gates>
+<gate name="1" symbol="SCHOTTKY" x="0" y="0"/>
+</gates>
+<devices>
+<device name="" package="SOT23">
+<connects>
+<connect gate="1" pin="A" pad="1"/>
+<connect gate="1" pin="C" pad="3"/>
+</connects>
+<technologies>
+<technology name=""/>
+</technologies>
+</device>
+</devices>
+</deviceset>
+</devicesets>
+</library>
 </libraries>
 <attributes>
 </attributes>
@@ -15818,7 +15940,6 @@ Created 2014-07-09, Karrer Zheng&lt;br&gt;
 <part name="C1" library="resistor" deviceset="C-EU" device="C1206" value="47uF"/>
 <part name="C2" library="rcl" deviceset="C-EU" device="C1206K" value="100nF"/>
 <part name="GND2" library="supply1" deviceset="GND" device=""/>
-<part name="VCC" library="supply1" deviceset="VCC" device=""/>
 <part name="LED3" library="led" deviceset="LED" device="CHIPLED_0603" value="lc green"/>
 <part name="R3" library="eagle-ltspice" deviceset="R" device="R1206" value="1k8"/>
 <part name="GND3" library="supply1" deviceset="GND" device=""/>
@@ -15873,6 +15994,9 @@ Created 2014-07-09, Karrer Zheng&lt;br&gt;
 <part name="R4" library="eagle-ltspice" deviceset="R" device="R1206" value="680"/>
 <part name="C10" library="rcl" deviceset="C-EU" device="C1206" value="10uF"/>
 <part name="C6" library="rcl" deviceset="C-EU" device="C0603" value="100nF"/>
+<part name="R7" library="resistor" deviceset="R-EU_" device="R1206" value="220"/>
+<part name="D3" library="diode" deviceset="BAS70" device="" value="PMEG2010AET"/>
+<part name="P+1" library="supply1" deviceset="VCC" device=""/>
 </parts>
 <sheets>
 <sheet>
@@ -15909,7 +16033,6 @@ Created 2014-07-09, Karrer Zheng&lt;br&gt;
 <instance part="C1" gate="G$1" x="-20.32" y="43.18"/>
 <instance part="C2" gate="G$1" x="86.36" y="50.8"/>
 <instance part="GND2" gate="1" x="-20.32" y="-50.8"/>
-<instance part="VCC" gate="VCC" x="12.7" y="58.42"/>
 <instance part="LED3" gate="G$1" x="142.24" y="25.4" rot="R90"/>
 <instance part="R3" gate="G$1" x="129.54" y="25.4" rot="R180"/>
 <instance part="GND3" gate="1" x="149.86" y="20.32"/>
@@ -15962,9 +16085,12 @@ Created 2014-07-09, Karrer Zheng&lt;br&gt;
 <instance part="U$11" gate="G$1" x="22.86" y="10.16" rot="R90"/>
 <instance part="U$12" gate="G$1" x="111.76" y="50.8" rot="R90"/>
 <instance part="C9" gate="G$1" x="-27.94" y="-20.32" rot="R90"/>
-<instance part="R4" gate="G$1" x="-43.18" y="-10.16"/>
+<instance part="R4" gate="G$1" x="-40.64" y="-10.16"/>
 <instance part="C10" gate="G$1" x="106.68" y="-35.56"/>
 <instance part="C6" gate="G$1" x="43.18" y="-30.48" rot="R90"/>
+<instance part="R7" gate="G$1" x="25.4" y="58.42" rot="R180"/>
+<instance part="D3" gate="1" x="-48.26" y="-5.08" rot="R90"/>
+<instance part="P+1" gate="VCC" x="-48.26" y="2.54"/>
 </instances>
 <busses>
 </busses>
@@ -16114,8 +16240,9 @@ Created 2014-07-09, Karrer Zheng&lt;br&gt;
 <pinref part="IC1" gate="IC" pin="PA7(ADC7/ICP/OC0B/PCINT7)"/>
 <wire x1="48.26" y1="7.62" x2="0" y2="7.62" width="0.1524" layer="91"/>
 <wire x1="-99.06" y1="48.26" x2="-99.06" y2="7.62" width="0.1524" layer="91"/>
-<wire x1="-99.06" y1="7.62" x2="-20.32" y2="7.62" width="0.1524" layer="91"/>
+<wire x1="-99.06" y1="7.62" x2="-48.26" y2="7.62" width="0.1524" layer="91"/>
 <pinref part="Q2" gate="G$1" pin="D"/>
+<wire x1="-48.26" y1="7.62" x2="-20.32" y2="7.62" width="0.1524" layer="91"/>
 </segment>
 </net>
 <net name="N$32" class="0">
@@ -16225,15 +16352,9 @@ Created 2014-07-09, Karrer Zheng&lt;br&gt;
 <junction x="-20.32" y="50.8"/>
 </segment>
 <segment>
-<pinref part="VCC" gate="VCC" pin="VCC"/>
-<wire x1="12.7" y1="55.88" x2="12.7" y2="53.34" width="0.1524" layer="91"/>
-<pinref part="U$2" gate="G$1" pin="VCC"/>
-<wire x1="12.7" y1="53.34" x2="12.7" y2="45.72" width="0.1524" layer="91"/>
-<wire x1="12.7" y1="45.72" x2="15.24" y2="45.72" width="0.1524" layer="91"/>
-<pinref part="C5" gate="G$1" pin="1"/>
-<wire x1="5.08" y1="48.26" x2="5.08" y2="53.34" width="0.1524" layer="91"/>
-<wire x1="5.08" y1="53.34" x2="12.7" y2="53.34" width="0.1524" layer="91"/>
-<junction x="12.7" y="53.34"/>
+<pinref part="D3" gate="1" pin="C"/>
+<pinref part="P+1" gate="VCC" pin="VCC"/>
+<wire x1="-48.26" y1="-2.54" x2="-48.26" y2="0" width="0.1524" layer="91"/>
 </segment>
 </net>
 <net name="SCK" class="0">
@@ -16370,7 +16491,7 @@ Created 2014-07-09, Karrer Zheng&lt;br&gt;
 </segment>
 <segment>
 <wire x1="-25.4" y1="-10.16" x2="-33.02" y2="-10.16" width="0.1524" layer="91"/>
-<wire x1="-33.02" y1="-10.16" x2="-38.1" y2="-10.16" width="0.1524" layer="91"/>
+<wire x1="-33.02" y1="-10.16" x2="-35.56" y2="-10.16" width="0.1524" layer="91"/>
 <pinref part="Q2" gate="G$1" pin="G"/>
 <pinref part="C9" gate="G$1" pin="1"/>
 <wire x1="-30.48" y1="-20.32" x2="-33.02" y2="-20.32" width="0.1524" layer="91"/>
@@ -16402,11 +16523,15 @@ Created 2014-07-09, Karrer Zheng&lt;br&gt;
 <segment>
 <pinref part="R2" gate="G$1" pin="1"/>
 <pinref part="R4" gate="G$1" pin="1"/>
+<wire x1="-45.72" y1="-10.16" x2="-48.26" y2="-10.16" width="0.1524" layer="91"/>
 <wire x1="-48.26" y1="-10.16" x2="-53.34" y2="-10.16" width="0.1524" layer="91"/>
 <wire x1="-53.34" y1="-10.16" x2="-53.34" y2="-15.24" width="0.1524" layer="91"/>
 <junction x="-53.34" y="-10.16"/>
 <wire x1="-53.34" y1="-10.16" x2="-53.34" y2="-7.62" width="0.1524" layer="91"/>
 <pinref part="U$6" gate="G$1" pin="5V"/>
+<pinref part="D3" gate="1" pin="A"/>
+<wire x1="-48.26" y1="-10.16" x2="-48.26" y2="-7.62" width="0.1524" layer="91"/>
+<junction x="-48.26" y="-10.16"/>
 </segment>
 </net>
 <net name="N$8" class="0">
@@ -16414,6 +16539,29 @@ Created 2014-07-09, Karrer Zheng&lt;br&gt;
 <pinref part="U3" gate="G$1" pin="DTR"/>
 <pinref part="C6" gate="G$1" pin="2"/>
 <wire x1="53.34" y1="-30.48" x2="48.26" y2="-30.48" width="0.1524" layer="91"/>
+</segment>
+</net>
+<net name="N$9" class="0">
+<segment>
+<pinref part="IC1" gate="IC" pin="PA3(ADC3/T0/PCINT3)"/>
+<wire x1="48.26" y1="17.78" x2="43.18" y2="17.78" width="0.1524" layer="91"/>
+<wire x1="43.18" y1="17.78" x2="43.18" y2="58.42" width="0.1524" layer="91"/>
+<pinref part="R7" gate="G$1" pin="1"/>
+<wire x1="43.18" y1="58.42" x2="30.48" y2="58.42" width="0.1524" layer="91"/>
+</segment>
+</net>
+<net name="N$10" class="0">
+<segment>
+<pinref part="U$2" gate="G$1" pin="VCC"/>
+<wire x1="12.7" y1="53.34" x2="12.7" y2="45.72" width="0.1524" layer="91"/>
+<wire x1="12.7" y1="45.72" x2="15.24" y2="45.72" width="0.1524" layer="91"/>
+<pinref part="C5" gate="G$1" pin="1"/>
+<wire x1="5.08" y1="48.26" x2="5.08" y2="53.34" width="0.1524" layer="91"/>
+<wire x1="5.08" y1="53.34" x2="12.7" y2="53.34" width="0.1524" layer="91"/>
+<pinref part="R7" gate="G$1" pin="2"/>
+<wire x1="20.32" y1="58.42" x2="12.7" y2="58.42" width="0.1524" layer="91"/>
+<wire x1="12.7" y1="58.42" x2="12.7" y2="53.34" width="0.1524" layer="91"/>
+<junction x="12.7" y="53.34"/>
 </segment>
 </net>
 </nets>
