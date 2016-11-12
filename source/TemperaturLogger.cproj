@@ -38,12 +38,10 @@
         </dependencies>
       </framework-data>
     </AsfFrameworkConfig>
-    <avrtool>custom</avrtool>
-    <avrtoolserialnumber>
-    </avrtoolserialnumber>
+    <avrtool>com.atmel.avrdbg.tool.ispmk2</avrtool>
+    <avrtoolserialnumber>0000000000000</avrtoolserialnumber>
     <avrdeviceexpectedsignature>0x1E9315</avrdeviceexpectedsignature>
-    <avrtoolinterface>
-    </avrtoolinterface>
+    <avrtoolinterface>ISP</avrtoolinterface>
     <avrtoolinterfaceclock>125000</avrtoolinterfaceclock>
     <com_atmel_avrdbg_tool_ispmk2>
       <ToolOptions>
@@ -181,6 +179,12 @@
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="temperatur-converter.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="tsic.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="tsic.h">
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="uart.c">
