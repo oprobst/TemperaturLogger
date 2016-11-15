@@ -1,27 +1,5 @@
-#define F_CPU 1000000
-#define BAUD 4800
 
-#define POWER_HI PORTB |= (1<<PB1);
-#define POWER_LO PORTB |= (0<<PB1);
-
-//#define MEASUREMENT_INTERVALL 2000 * 60 //every two minutes
-#define MEASUREMENT_INTERVALL 1000 //every second
-
-#include <stdint.h>
-#include <avr/interrupt.h>
-#include <util/delay.h>
-#include <avr/sleep.h>
-
-#include "adc-measurements.h"
-#include "eeprom-store.h"
-#include "uart.h"
-#include "temperatur-converter.h"
-#include "tsic.h"
- 
-void power_down();
-void measure_mode();
-void output_mode ();
-void init_interrupts ();
+#include "main.h"
 
 volatile uint32_t secondsSinceLastMeasurement = 0;
 
@@ -51,6 +29,7 @@ int main( void )
 	init_adc();
 	init_interrupts ();
 	init_converter();
+	TSIC_INIT();	// Init TSIC Temperatursensor
 	
 	sei();
 	
@@ -137,7 +116,7 @@ void measure_mode(){
 		
 	}
 }
-
+uint16_t temperature = 0;
 void output_mode (){
 	for (int i = 0;  i < 10;i++){
 		_delay_ms(100);
@@ -145,6 +124,13 @@ void output_mode (){
 	}
 	while(1)
 	{
+		if (getTSicTemp(&temperature)){ //turn the TSIC-Sensor ON -> messure -> OFF
+			temperature = ((temperature * 250L) >> 8) - 500;				// Temperatur *10 also 26,4 = 264
+			uart_transmit_string("Current temperature:");
+			uart_transmit_integer(temperature);
+			uart_transmit_string("\n\r");
+			 
+		}
 		
 		uart_transmit_string("Ready for sending EEPROM! \n\r");
 		uart_receive();

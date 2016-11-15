@@ -15,7 +15,7 @@
 
 void uart_init(void)
 {
-	REMAP = (1 << U0MAP);
+	//REMAP = (1 << U0MAP);
 	
 	UBRR0H = UBRRH_VALUE;
 	UBRR0L = UBRRL_VALUE;
