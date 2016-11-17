@@ -1,9 +1,12 @@
 package de.oliverprobst.temperaturelog;
 
+import java.nio.Buffer;
 import java.util.concurrent.ConcurrentLinkedQueue;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ThreadFactory;
+
+import org.apache.commons.collections4.queue.CircularFifoQueue;
 
 import javafx.animation.AnimationTimer;
 import javafx.application.Application;
@@ -15,17 +18,17 @@ import javafx.stage.Stage;
 
 public class AnimatedLineChart extends Application {
 
-	private static final int MAX_DATA_POINTS = 1280;
+	private static final int MAX_DATA_POINTS = 640;
 	private int xSeriesData = 0;
 	private XYChart.Series<Number, Number> series1 = new XYChart.Series<>();
+	private XYChart.Series<Number, Number> series2 = new XYChart.Series<>();
 	private float lowest = 0;
-	private float highest =100;
+	private float highest = 100;
 	private ExecutorService executor;
 	private ConcurrentLinkedQueue<Number> dataQ1 = new ConcurrentLinkedQueue<>();
 
 	private NumberAxis xAxis;
 	private NumberAxis yAxis;
-	
 
 	private void init(Stage primaryStage) {
 
@@ -35,10 +38,12 @@ public class AnimatedLineChart extends Application {
 		xAxis.setTickLabelsVisible(false);
 		xAxis.setTickMarkVisible(false);
 		xAxis.setMinorTickVisible(false);
-		
-		yAxis = new NumberAxis ();
+		xAxis.setMinorTickCount(10);
+		xAxis.setTickUnit(30);
+
+		yAxis = new NumberAxis();
 		yAxis.setForceZeroInRange(false);
-		
+
 		// Create a LineChart
 		final LineChart<Number, Number> lineChart = new LineChart<Number, Number>(xAxis, yAxis) {
 			// Override to remove symbols on each data point
@@ -52,16 +57,18 @@ public class AnimatedLineChart extends Application {
 		lineChart.setHorizontalGridLinesVisible(true);
 
 		// Set Name for Series
-		series1.setName("°C");
+		series1.setName("Current temperature [°C]");
+		series2.setName("Mean temperature over last " + MEAN_BUFFER_SIZE + " measurements [°C]");
 
 		// Add Chart Series
 		lineChart.getData().addAll(series1);
-
+		lineChart.getData().addAll(series2);
+		
 		Scene scene = new Scene(lineChart);
 		primaryStage.setScene(scene);
-		
-		String css = this.getClass().getResource("/styles/styles.css").toExternalForm(); 
-	 	//scene.getStylesheets().clear();
+
+		String css = this.getClass().getResource("/styles/styles.css").toExternalForm();
+		// scene.getStylesheets().clear();
 		scene.getStylesheets().add(css);
 	}
 
@@ -99,7 +106,7 @@ public class AnimatedLineChart extends Application {
 					e.printStackTrace();
 				}
 
-				Thread.sleep(1000);
+				Thread.sleep(100);
 				executor.execute(this);
 			} catch (InterruptedException ex) {
 				ex.printStackTrace();
@@ -123,7 +130,11 @@ public class AnimatedLineChart extends Application {
 			if (dataQ1.isEmpty())
 				break;
 			Number newVal =  dataQ1.remove();
+			Number mean = calculateMean(newVal);
+			
 			series1.getData().add(new XYChart.Data<>(xSeriesData++, newVal));
+			series2.getData().add(new XYChart.Data<>(xSeriesData++, mean));
+			
 			if (newVal.floatValue() < lowest){
 				lowest = newVal.floatValue();
 			}
@@ -140,13 +151,24 @@ public class AnimatedLineChart extends Application {
 		
 		xAxis.setLowerBound(xSeriesData - MAX_DATA_POINTS);
 		xAxis.setUpperBound(xSeriesData - 1);
-		
-		yAxis.setLowerBound(lowest -3);
-		yAxis.setUpperBound(highest +3);
+		 
+	}
+
+	private final int MEAN_BUFFER_SIZE = 25;
+	CircularFifoQueue<Double> buf = new CircularFifoQueue<>(MEAN_BUFFER_SIZE);
+
+	private Number calculateMean(Number newVal) {
+		buf.add(newVal.doubleValue());
+		double result = 0;
+		for (Number n : buf) {
+			result += n.doubleValue();
+		}
+		return result / buf.size();
+
 	}
 
 	public static void main(String[] args) {
-		
+
 		launch(args);
 	}
 }

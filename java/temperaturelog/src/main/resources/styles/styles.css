@@ -28,7 +28,7 @@
     -fx-effect: null;
 }
  
-.default-color0.chart-series-line { -fx-stroke: #FF5555; }
+.default-color0.chart-series-line { -fx-stroke: #FF2222; }
 
 
 .chart-plot-background {
@@ -36,9 +36,11 @@
 }
 .chart-vertical-grid-lines {
     -fx-stroke: #3278fa;
+     -fx-stroke-width: 1px;
 }
 .chart-horizontal-grid-lines {
     -fx-stroke: #3278fa;
+    -fx-stroke-width: 1px;
 }
 .chart-alternative-row-fill {
     -fx-fill: transparent;

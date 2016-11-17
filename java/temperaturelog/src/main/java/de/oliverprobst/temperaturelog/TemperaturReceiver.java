@@ -10,7 +10,6 @@ public class TemperaturReceiver {
 	private final byte[] requestMemory = { 0x02 };
 	private final byte[] requestVerbose = { 'V' };
 
-
 	private final SerialPort comPort;
 
 	public TemperaturReceiver() {
@@ -33,24 +32,24 @@ public class TemperaturReceiver {
 
 		try {
 
-			while (result.length() < 6){
-			comPort.writeBytes(requestTemperature, 1);
-						 
-				 byte[] readBuffer = new byte[7];
-			     int numRead = comPort.readBytes(readBuffer, readBuffer.length);
-			
-			     System.out.println("Read " + numRead + " bytes.");
-			
-			     String read = new String(readBuffer, Charset.forName("UTF-8"));
-				
-			     if (read.startsWith("T")) {
+			while (result.length() < 6) {
+				comPort.writeBytes(requestTemperature, 1);
+
+				byte[] readBuffer = new byte[7];
+				int numRead = comPort.readBytes(readBuffer, readBuffer.length);
+
+				System.out.println("Read " + numRead + " bytes.");
+
+				String read = new String(readBuffer, Charset.forName("UTF-8"));
+
+				if (read.startsWith("T")) {
 					result.append(read);
 				} else {
 					System.out.println("discarding " + read.length() + " received bytes: '" + read + "'");
 				}
-				
+
 			}
-			
+
 			return parseInt(result);
 
 		} catch (Exception e) {
@@ -61,13 +60,20 @@ public class TemperaturReceiver {
 
 	}
 
-	private float parseInt(StringBuffer result) {
+	double lastValue = -1000;
+
+	private float parseInt(StringBuffer result) throws Exception {
 
 		String res = result.toString();
 		System.out.println(res);
 		res = res.substring(1, 5);
 
 		float measure = Float.parseFloat(res.toString());
-		return measure/10;
+		
+		if (lastValue > -999.0 && (measure < lastValue - 80 || measure > lastValue + 80)) {
+			throw new Exception("Strange value received: " + measure / 10);
+		}
+		lastValue = measure;
+		return measure / 10;
 	}
 }
