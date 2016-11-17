@@ -16500,14 +16500,17 @@ General-purpose diode for high-speed switching</description>
 <pinref part="U$3" gate="G$1" pin="5V"/>
 </segment>
 <segment>
-<wire x1="-25.4" y1="-10.16" x2="-33.02" y2="-10.16" width="0.1524" layer="91"/>
-<wire x1="-33.02" y1="-10.16" x2="-35.56" y2="-10.16" width="0.1524" layer="91"/>
-<pinref part="Q2" gate="G$1" pin="G"/>
-<pinref part="C9" gate="G$1" pin="1"/>
-<wire x1="-30.48" y1="-20.32" x2="-33.02" y2="-20.32" width="0.1524" layer="91"/>
-<wire x1="-33.02" y1="-20.32" x2="-33.02" y2="-10.16" width="0.1524" layer="91"/>
-<junction x="-33.02" y="-10.16"/>
-<pinref part="R4" gate="G$1" pin="2"/>
+<pinref part="R2" gate="G$1" pin="1"/>
+<pinref part="R4" gate="G$1" pin="1"/>
+<wire x1="-45.72" y1="-10.16" x2="-48.26" y2="-10.16" width="0.1524" layer="91"/>
+<wire x1="-48.26" y1="-10.16" x2="-53.34" y2="-10.16" width="0.1524" layer="91"/>
+<wire x1="-53.34" y1="-10.16" x2="-53.34" y2="-15.24" width="0.1524" layer="91"/>
+<junction x="-53.34" y="-10.16"/>
+<wire x1="-53.34" y1="-10.16" x2="-53.34" y2="-7.62" width="0.1524" layer="91"/>
+<pinref part="U$6" gate="G$1" pin="5V"/>
+<pinref part="D3" gate="1" pin="A"/>
+<wire x1="-48.26" y1="-10.16" x2="-48.26" y2="-7.62" width="0.1524" layer="91"/>
+<junction x="-48.26" y="-10.16"/>
 </segment>
 </net>
 <net name="N$3" class="0">
@@ -16527,21 +16530,6 @@ General-purpose diode for high-speed switching</description>
 <pinref part="Q2" gate="G$1" pin="S"/>
 <wire x1="-20.32" y1="-12.7" x2="-20.32" y2="-20.32" width="0.1524" layer="91"/>
 <junction x="-20.32" y="-20.32"/>
-</segment>
-</net>
-<net name="5V" class="0">
-<segment>
-<pinref part="R2" gate="G$1" pin="1"/>
-<pinref part="R4" gate="G$1" pin="1"/>
-<wire x1="-45.72" y1="-10.16" x2="-48.26" y2="-10.16" width="0.1524" layer="91"/>
-<wire x1="-48.26" y1="-10.16" x2="-53.34" y2="-10.16" width="0.1524" layer="91"/>
-<wire x1="-53.34" y1="-10.16" x2="-53.34" y2="-15.24" width="0.1524" layer="91"/>
-<junction x="-53.34" y="-10.16"/>
-<wire x1="-53.34" y1="-10.16" x2="-53.34" y2="-7.62" width="0.1524" layer="91"/>
-<pinref part="U$6" gate="G$1" pin="5V"/>
-<pinref part="D3" gate="1" pin="A"/>
-<wire x1="-48.26" y1="-10.16" x2="-48.26" y2="-7.62" width="0.1524" layer="91"/>
-<junction x="-48.26" y="-10.16"/>
 </segment>
 </net>
 <net name="N$8" class="0">
@@ -16598,6 +16586,18 @@ General-purpose diode for high-speed switching</description>
 <pinref part="U$13" gate="G$1" pin="P$1"/>
 <wire x1="145.8" y1="10.16" x2="142.24" y2="10.16" width="0.1524" layer="91"/>
 <label x="144.78" y="10.16" size="1.778" layer="95"/>
+</segment>
+</net>
+<net name="BATOFF" class="0">
+<segment>
+<wire x1="-25.4" y1="-10.16" x2="-33.02" y2="-10.16" width="0.1524" layer="91"/>
+<pinref part="Q2" gate="G$1" pin="G"/>
+<pinref part="C9" gate="G$1" pin="1"/>
+<wire x1="-30.48" y1="-20.32" x2="-33.02" y2="-20.32" width="0.1524" layer="91"/>
+<wire x1="-33.02" y1="-20.32" x2="-33.02" y2="-10.16" width="0.1524" layer="91"/>
+<pinref part="R4" gate="G$1" pin="2"/>
+<wire x1="-33.02" y1="-10.16" x2="-35.56" y2="-10.16" width="0.1524" layer="91"/>
+<junction x="-33.02" y="-10.16"/>
 </segment>
 </net>
 </nets>
