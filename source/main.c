@@ -21,6 +21,9 @@ int main( void )
 	//PA3: Power up supply sensor
 	DDRA |= (1 << PA3);
 	
+	//Clock on PB2
+	//CLKCR |= (1 << CKOUTC);
+	
 	set_start_temperature(0);
 	set_end_temperature(30);
 	set_resolution(2);
@@ -124,6 +127,20 @@ void output_mode (){
 	}
 	while(1)
 	{
+		char command = uart_receive();
+		if (command == 'T'){
+			_delay_ms(0);
+			if (getTSicTemp(&temperature)){ //turn the TSIC-Sensor ON -> messure -> OFF
+				//temperature = (( temperature * 250L) >> 8) - 500;				// Temperatur *10 also 26,4 = 264
+			    temperature = (temperature * 200.0/2048.0 -50)* 10.0 ;
+				uart_transmit_string("T");
+				uart_transmit_integer(temperature);		
+				uart_transmit_string("t");		
+			}
+		} else if (command == 'M'){
+			
+			
+		} else if (command == 'V'){
 		if (getTSicTemp(&temperature)){ //turn the TSIC-Sensor ON -> messure -> OFF
 			temperature = ((temperature * 250L) >> 8) - 500;				// Temperatur *10 also 26,4 = 264
 			uart_transmit_string("Current temperature:");
@@ -132,8 +149,7 @@ void output_mode (){
 			 
 		}
 		
-		uart_transmit_string("Ready for sending EEPROM! \n\r");
-		uart_receive();
+		uart_transmit_string("Sending EEPROM! \n\r");
 		uart_transmit_string("\n\r Resolution: ");
 		uart_transmit_integer(get_resolution());
 		uart_transmit_string("\n\r From range: ");
@@ -153,7 +169,7 @@ void output_mode (){
 		
 		uart_transmit_string(" \n\r End of EEPROM... \n\r");
 		eeprom_reset_current_address();
-		uart_receive();
+		}
 		
 	}
 }

@@ -1,9 +1,9 @@
 #ifndef F_CPU
-#define F_CPU 1000000
+#define F_CPU 1028000
 #endif
 
 #ifndef BAUD
-#define BAUD 4800
+#define BAUD 1200
 #endif 
 
 #include <util/setbaud.h>
@@ -23,7 +23,7 @@ void uart_init(void)
 	UCSR0A &= ~(1 << U2X0);
 	
 	UCSR0B = ( ( 1 << RXEN0 ) | ( 1 << TXEN0 ) );
-	UCSR0C = (1<<USBS0)|(1<<UCSZ01)|(1<<UCSZ00);
+	UCSR0C = (1<<USBS0)|(1<<UCSZ01)|(1<<UCSZ00) |(0<<UPM00)|(1<<UPM01);
 
 }
 
@@ -31,8 +31,8 @@ void uart_init(void)
 
 void uart_transmit_integer(int32_t value)
 {
-	char data[16];
-	sprintf(data, "%ld", value);
+	char data[6];
+	sprintf(data, "%04ld", value);
 	uart_transmit_string(data);
 }
 

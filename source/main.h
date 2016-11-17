@@ -1,8 +1,7 @@
 #ifndef MAIN_H_
 #define MAIN_H_
 
-#define F_CPU 1000000
-#define BAUD 4800
+#define F_CPU 1028000 
 
 #define POWER_HI PORTB |= (1<<PB1);
 #define POWER_LO PORTB |= (0<<PB1);
