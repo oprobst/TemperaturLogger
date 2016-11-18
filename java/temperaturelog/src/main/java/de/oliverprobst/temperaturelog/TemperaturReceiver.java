@@ -70,7 +70,7 @@ public class TemperaturReceiver {
 
 		float measure = Float.parseFloat(res.toString());
 		
-		if (lastValue > -999.0 && (measure < lastValue - 80 || measure > lastValue + 80)) {
+		if (lastValue > -999.0 && (measure < lastValue - 60 || measure > lastValue + 60)) {
 			throw new Exception("Strange value received: " + measure / 10);
 		}
 		lastValue = measure;
