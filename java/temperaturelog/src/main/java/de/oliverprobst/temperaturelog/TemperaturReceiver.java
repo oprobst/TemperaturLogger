@@ -50,7 +50,8 @@ public class TemperaturReceiver {
 
 			}
 
-			return parseInt(result);
+			float res = parseInt(result);
+			return res;
 
 		} catch (Exception e) {
 			e.printStackTrace();

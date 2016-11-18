@@ -9,11 +9,14 @@ import org.apache.commons.collections4.queue.CircularFifoQueue;
 
 import javafx.animation.AnimationTimer;
 import javafx.application.Application;
+import javafx.event.EventHandler;
 import javafx.scene.Scene;
 import javafx.scene.chart.LineChart;
 import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.XYChart;
 import javafx.scene.control.Label;
+import javafx.scene.input.MouseButton;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
@@ -21,7 +24,7 @@ import javafx.stage.Stage;
 
 public class AnimatedLineChart extends Application {
 
-	private static final int MAX_DATA_POINTS = 1024;
+	private int maxDataPoints = 1024;
 	private int xSeriesData = 0;
 	private XYChart.Series<Number, Number> series1 = new XYChart.Series<>();
 	private XYChart.Series<Number, Number> series2 = new XYChart.Series<>();
@@ -33,9 +36,15 @@ public class AnimatedLineChart extends Application {
 	private NumberAxis xAxis;
 	private NumberAxis yAxis;
 
+	private boolean small = false;
+
 	private void init(Stage primaryStage) {
 
-		xAxis = new NumberAxis(0, MAX_DATA_POINTS, MAX_DATA_POINTS / 10);
+		if (System.getProperty("small") != null) {
+			small = Boolean.valueOf(System.getProperty("small"));
+			maxDataPoints = 320;
+		}
+		xAxis = new NumberAxis(0, maxDataPoints, maxDataPoints / 10);
 		xAxis.setForceZeroInRange(false);
 		xAxis.setAutoRanging(false);
 		xAxis.setTickLabelsVisible(false);
@@ -56,31 +65,63 @@ public class AnimatedLineChart extends Application {
 		};
 
 		lineChart.setAnimated(false);
-		lineChart.setTitle("Temperature");
+		if (!small) {
+			lineChart.setTitle("Temperature");
+		}
 		lineChart.setHorizontalGridLinesVisible(true);
 
 		// Set Name for Series
-		series1.setName("Current temperature [°C]");
-		series2.setName("Mean temperature over last " + MEAN_BUFFER_SIZE + " measurements [°C]");
+		series1.setName("Temperature [°C]");
+		series2.setName("Mean last " + MEAN_BUFFER_SIZE + " [°C]");
 
 		// Add Chart Series
 		lineChart.getData().addAll(series1);
-		lineChart.getData().addAll(series2); 	 
-		
+		lineChart.getData().addAll(series2);
+
 		GridPane gridPane = new GridPane();
-		gridPane.setPrefSize(1024, 800);
-		BorderPane box = new BorderPane(lineChart);
 		
+		gridPane.setOnMouseClicked(new EventHandler<MouseEvent>() {
+		    @Override
+		    public void handle(MouseEvent mouseEvent) {
+		        if(mouseEvent.getButton().equals(MouseButton.PRIMARY)){
+		        	if(mouseEvent.getClickCount() == 5){
+		              Persist.close();
+		              System.exit(0);
+			        }
+		        	if(mouseEvent.getClickCount() == 2){
+		        		series1.getData().clear();
+		    			series2.getData().clear();
+		    			lowest = 1000;
+		    			highest = -1000;
+		    		
+		            }
+		        }
+		    }
+		});
+		
+		if (small) {
+			gridPane.setPrefSize(320, 240);
+		} else {
+			gridPane.setPrefSize(1024, 800);
+		}
+		BorderPane box = new BorderPane(lineChart);
+
 		box.prefWidthProperty().bind(gridPane.widthProperty());
 		box.prefHeightProperty().bind(gridPane.heightProperty());
-		
+
 		gridPane.add(box, 0, 0);
 		gridPane.add(createLabelBox(), 0, 1);
- 
+
 		Scene scene = new Scene(gridPane);
 
 		primaryStage.setScene(scene);
-		String css = this.getClass().getResource("/styles/styles.css").toExternalForm();
+
+		String css;
+		if (small) {
+			css = this.getClass().getResource("/styles/styles-small.css").toExternalForm();
+		} else {
+			css = this.getClass().getResource("/styles/styles.css").toExternalForm();
+		}
 		// scene.getStylesheets().clear();
 		scene.getStylesheets().add(css);
 
@@ -92,7 +133,7 @@ public class AnimatedLineChart extends Application {
 
 	private HBox createLabelBox() {
 		HBox labelBox = new HBox();
-		labelBox.getChildren().add(new Label("Current Temperature: "));
+		labelBox.getChildren().add(new Label("Temperature: "));
 		labelBox.getChildren().add(lblCTemp);
 
 		labelBox.getChildren().add(new Label("Lowest: "));
@@ -100,12 +141,15 @@ public class AnimatedLineChart extends Application {
 
 		labelBox.getChildren().add(new Label("Highest: "));
 		labelBox.getChildren().add(lblCTempHi);
-
- 
+		if (!small) {
+			Label lblStoreToFile = new Label("Saving '" + Persist.getFileName() + "'");
+			lblStoreToFile.getStyleClass().add("filename-label");
+			labelBox.getChildren().add(lblStoreToFile);
+		}
 		lblCTemp.getStyleClass().add("cur-temp-lbl");
 		lblCTempLow.getStyleClass().add("lo-temp-lbl");
 		lblCTempHi.getStyleClass().add("hi-temp-lbl");
-	
+
 		labelBox.setMaxHeight(30);
 		return labelBox;
 	}
@@ -144,7 +188,7 @@ public class AnimatedLineChart extends Application {
 					e.printStackTrace();
 				}
 
-				Thread.sleep(100);
+				Thread.sleep(200);
 				executor.execute(this);
 			} catch (InterruptedException ex) {
 				ex.printStackTrace();
@@ -168,6 +212,7 @@ public class AnimatedLineChart extends Application {
 			if (dataQ1.isEmpty())
 				break;
 			Number newVal = dataQ1.remove();
+			Persist.writeTemperature(newVal.floatValue());
 			Number mean = calculateMean(newVal);
 
 			series1.getData().add(new XYChart.Data<>(xSeriesData++, newVal));
@@ -184,12 +229,12 @@ public class AnimatedLineChart extends Application {
 
 		}
 		// remove points to keep us at no more than MAX_DATA_POINTS
-		if (series1.getData().size() > MAX_DATA_POINTS) {
-			series1.getData().remove(0, series1.getData().size() - MAX_DATA_POINTS);
+		if (series1.getData().size() > maxDataPoints) {
+			series1.getData().remove(0, series1.getData().size() - maxDataPoints);
 		}
 		// update
 
-		xAxis.setLowerBound(xSeriesData - MAX_DATA_POINTS);
+		xAxis.setLowerBound(xSeriesData - maxDataPoints);
 		xAxis.setUpperBound(xSeriesData - 1);
 
 	}

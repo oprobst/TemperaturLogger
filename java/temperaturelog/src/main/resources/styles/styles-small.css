@@ -1,19 +1,19 @@
 .root{
-	 -fx-font-size: 1.6em;
-     -fx-padding: 10.0 20.0 10.0 20.0;
+	 -fx-font-size: 1.0em;
+     -fx-padding: 1.0 3.0 1.0 2.0;
 	 -fx-background-color: black;
 	 }
 
 .chart {
-    -fx-padding: 10.0px;
+    -fx-padding: 2.0px;
 }
 .chart-content {
-    -fx-padding: 30.0px;    
+    -fx-padding: 2.0px;    
 }
   
 .chart-title {
   -fx-text-fill: #4682b4;
-  -fx-font-size: 1.6em;
+  -fx-font-size: .6em;
 }
  
 .axis-label {
@@ -22,7 +22,7 @@
  
 .chart-legend {
    -fx-background-color:  transparent;
-   -fx-padding: 20.0px;
+   -fx-padding: 2.0px;
 }
  
 .chart-legend-item-symbol{
@@ -30,14 +30,14 @@
 }
 
 .chart-series-line {    
-    -fx-stroke-width: 3.0px;
+    -fx-stroke-width: 1.0px;
     -fx-effect: null;
 }
  
 .default-color0.chart-series-line { -fx-stroke: #FF2222; }
 
 .axis{
-  -fx-tick-label-font-size: 1.4em;
+  -fx-tick-label-font-size: .8em;
 }
 
 .chart-plot-background {
@@ -62,27 +62,27 @@
 
 .label {	
 	  -fx-text-fill: #4682b4;
-	  -fx-padding: 10.0 20.0 10.0 20.0;
+	  -fx-padding: 1.0 2.0 1.0 2.0;
 }
 
 .cur-temp-lbl { 
-	-fx-border-radius: 10.0 10.0 0.0 0.0;
-    -fx-background-radius: 10.0 10.0 0.0 0.0;
+	-fx-border-radius: 2.0 2.0 0.0 0.0;
+    -fx-background-radius: 1.0 2.0 0.0 0.0;
 	-fx-background-color: #4332ab; -fx-text-fill: white;
 } 
 .hi-temp-lbl {
-	-fx-border-radius: 10.0 10.0 0.0 0.0;
-    -fx-background-radius: 10.0 10.0 0.0 0.0;
+	-fx-border-radius: 2.0 2.0 0.0 0.0;
+    -fx-background-radius: 1.0 2.0 0.0 0.0;
 	-fx-background-color: #ab326f; -fx-text-fill: white;
 } 
 .lo-temp-lbl {
-	-fx-border-radius: 10.0 10.0 0.0 0.0;
-    -fx-background-radius: 10.0 10.0 0.0 0.0;
+	-fx-border-radius: 2.0 2.0 0.0 0.0;
+    -fx-background-radius: 1.0 2.0 0.0 0.0;
 	-fx-background-color: #3290ab; -fx-text-fill: white;
 } 
 
 .filename-label{
 	-fx-text-fill: #777698;
-	-fx-padding: 10.0 20.0 10.0 120.0;
-    -fx-font-size: 1.0em;
+	-fx-padding: 1.0 2.0 1.0 12.0;
+    -fx-font-size: 1.6em;
 }
