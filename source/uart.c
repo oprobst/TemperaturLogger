@@ -1,9 +1,9 @@
 #ifndef F_CPU
-#define F_CPU 1028000
+#define F_CPU 1000000
 #endif
 
 #ifndef BAUD
-#define BAUD 1200
+#define BAUD 4800
 #endif 
 
 #include <util/setbaud.h>

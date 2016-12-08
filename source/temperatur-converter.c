@@ -5,7 +5,7 @@
  #include "eeprom-store.h"
  
  uint32_t range ;
- uint32_t unit ; 
+ double unit ; 
  
 void init_converter (){
 	  range = get_end_temperature() * 100 - get_start_temperature() * 100;
@@ -19,7 +19,7 @@ void init_converter (){
 
  uint16_t to_units(int32_t temperatur){
 	uint32_t temp_wo_offset = temperatur - get_start_temperature() * 100; 
-	uint16_t rest = (uint32_t)(temp_wo_offset + (0.5 * unit)) % unit ;
+	uint16_t rest = (uint32_t)(temp_wo_offset + (0.5 * unit)) % (uint16_t) (unit + 0.5) ;
 	uint32_t units = temp_wo_offset - rest;
 	return units/unit;
  }

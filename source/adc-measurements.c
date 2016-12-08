@@ -78,7 +78,22 @@ uint16_t measure_supply_voltage(void)
 		sum += (1100UL*1023/ADC);     // AVcc = Vbg/ADC*1023 = 1.1V*1023/ADC
 	}
 	
+	
 	return (uint16_t)( sum / nsamples );
+	/*
+	uint16_t vcc =(uint16_t)( sum / nsamples );
+	ADMUXA= ((0 << MUX3)|(1 << MUX2)|(1 << MUX1)|(1 << MUX0)); // measure ADC7 = battery voltage
+	
+	sum = 0;
+	nsamples = 3;
+	_delay_us(500);
+	for (uint8_t i = 0; i < nsamples; ++i ) {
+		ADCSRA |= (1 << ADSC);        // start conversion
+		while (ADCSRA & (1 << ADSC)); // wait to finish
+		sum +=  (((double)vcc)/1023.0*ADC);     // AVcc = Vbg/ADC*1023 = 1.1V*1023/ADC
+	}
+	return (uint16_t)( sum / nsamples );
+	*/
 	
 }
 

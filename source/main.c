@@ -13,7 +13,6 @@ ISR (TIMER1_COMPA_vect) {
 /************************************************************************/
 int main( void )
 {
-	
 	//Outputs:
 	//PB0: LED 
 	//PB1: 5V supply power enable 
@@ -24,10 +23,10 @@ int main( void )
 	//Clock on PB2
 	//CLKCR |= (1 << CKOUTC);
 	
-	set_start_temperature(0);
+	set_start_temperature(5);
 	set_end_temperature(30);
-	set_resolution(2);
-	set_intervall(1);
+	set_resolution(1);
+	set_intervall(3);
 	
 	init_adc();
 	init_interrupts ();
@@ -38,9 +37,9 @@ int main( void )
 	
 	uint16_t supplyVolt = measure_supply_voltage();
 	
-	//measure_mode(); //outcomment me to debug on pc
+	//measure_mode(); //outcomment me to debug on pc		 		   
 		    
-	if (supplyVolt < 4500){
+	if (supplyVolt < 4500 && supplyVolt > 1000){
 		// Set UART pins to 0, to prevent reverse voltage from ft232 VCC pin (~ 1V if RX/TX = Hi)
 		DDRA |= (1 << PA1 | 1 << PA2);
 		PORTA |= (0 << PA1  | 0 << PA2);
@@ -79,33 +78,16 @@ void measure_mode(){
 		
 		if (secondsSinceLastMeasurement >= get_interval()){
 			POWER_HI
+			_delay_ms(2); 
 			PORTB ^= (1<<PB0);
 			ACSR1A |= ((0 << ACD1) ); //enable ac
 			ACSR0A |= ((0 << ACD1) ); //enable ac
-			uint16_t temp = measure_temperature_sensor(measure_supply_voltage());			
+			uint16_t temp;
+			getTSicTemp(&temp);			
 			uint32_t write = to_units(temp);		
 		    write_next_value(write);
 			POWER_LO
 			PORTB ^= (1<<PB0);
-		/* DELETEME
-		uart_transmit_string("\r\n");
-		uart_transmit_integer(write);
-		uart_transmit_string("=");
-		uart_transmit_integer(temp);
-		eeprom_reset_current_address();
-		
-		uart_transmit_string(" READ: ");
-		int32_t val = read_next_value();
-		uart_transmit_integer(val);
-		uart_transmit_string("=");
-		uart_transmit_integer(to_temperatur(val));
-		uart_transmit_string(" followed by: ");
-		uint32_t value = read_next_value();
-		uart_transmit_integer(value);
-		uart_transmit_string("=");
-		uart_transmit_integer(to_temperatur(value));
-		eeprom_reset_current_address();
-		*/
 		
 			if (is_buffer_full()){
 				while(1)
@@ -121,10 +103,7 @@ void measure_mode(){
 }
 uint16_t temperature = 0;
 void output_mode (){
-	for (int i = 0;  i < 10;i++){
-		_delay_ms(100);
-		PORTB ^= (1<<PB0);
-	}
+    uart_transmit_string("ENTERING OUTPUT MODE");
 	while(1)
 	{
 		char command = uart_receive();
@@ -136,6 +115,11 @@ void output_mode (){
 				uart_transmit_string("T");
 				uart_transmit_integer(temperature);		
 				uart_transmit_string("t");		
+				uart_transmit_string("\n\rU");
+				uart_transmit_integer(to_units(temperature));	
+				uart_transmit_string(" => ");
+					uart_transmit_integer(to_temperatur(to_units(temperature)));	
+					uart_transmit_string("u\n\r");
 			}
 		} else if (command == 'M'){
 			
@@ -159,6 +143,10 @@ void output_mode (){
 		uart_transmit_string("\n\r Interval : ");
 		uart_transmit_integer(get_interval());
 		uart_transmit_string(" sec.\n\r ");
+				uart_transmit_string("\n\r Voltage : ");
+				uart_transmit_integer(measure_supply_voltage());
+				uart_transmit_string(" mV\n\r ");
+		
 		uint16_t nextValue = 0;
 		while(! is_buffer_full()){
 			    nextValue = read_next_value();			
@@ -169,6 +157,8 @@ void output_mode (){
 		
 		uart_transmit_string(" \n\r End of EEPROM... \n\r");
 		eeprom_reset_current_address();
+		} else {
+			uart_transmit_string("Unknown command \n\r");
 		}
 		
 	}
