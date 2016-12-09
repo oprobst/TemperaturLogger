@@ -21,7 +21,7 @@ public class TemperaturReceiver {
 
 		comPort = SerialPort.getCommPorts()[port];
 
-		comPort.setComPortParameters(1200, 8, 1, SerialPort.EVEN_PARITY);
+		comPort.setComPortParameters(4800, 8, 1, SerialPort.EVEN_PARITY);
 		comPort.setFlowControl(SerialPort.FLOW_CONTROL_DISABLED);
 		comPort.setComPortTimeouts(SerialPort.TIMEOUT_READ_BLOCKING, 300, 0);
 		comPort.openPort();
@@ -67,7 +67,7 @@ public class TemperaturReceiver {
 
 	}
 
-	double lastValue = -1000;
+	double lastValue = -10000;
 
 	private float parseInt(StringBuffer result) throws Exception {
 
@@ -77,7 +77,7 @@ public class TemperaturReceiver {
 
 		float measure = Float.parseFloat(res.toString());
 
-		if (lastValue > -999.0 && (measure < lastValue - 60 || measure > lastValue + 60)) {
+		if (lastValue > -9999.0 && (measure < lastValue - 600 || measure > lastValue + 600)) {
 			throw new Exception("Strange value received: " + measure / 100);
 		}
 		lastValue = measure;
