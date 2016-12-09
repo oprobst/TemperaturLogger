@@ -113,7 +113,7 @@ public class AnimatedLineChart extends Application {
 		gridPane.add(createLabelBox(), 0, 1);
 
 		Scene scene = new Scene(gridPane);
-
+		 primaryStage.setFullScreen(true);
 		primaryStage.setScene(scene);
 
 		String css;
@@ -188,7 +188,7 @@ public class AnimatedLineChart extends Application {
 					e.printStackTrace();
 				}
 
-				Thread.sleep(200);
+				Thread.sleep(1);
 				executor.execute(this);
 			} catch (InterruptedException ex) {
 				ex.printStackTrace();
