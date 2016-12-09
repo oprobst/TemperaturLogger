@@ -79,8 +79,8 @@ uint16_t measure_supply_voltage(void)
 	}
 	
 	
-	return (uint16_t)( sum / nsamples );
-	/*
+	//return (uint16_t)( sum / nsamples );
+	
 	uint16_t vcc =(uint16_t)( sum / nsamples );
 	ADMUXA= ((0 << MUX3)|(1 << MUX2)|(1 << MUX1)|(1 << MUX0)); // measure ADC7 = battery voltage
 	
@@ -93,7 +93,7 @@ uint16_t measure_supply_voltage(void)
 		sum +=  (((double)vcc)/1023.0*ADC);     // AVcc = Vbg/ADC*1023 = 1.1V*1023/ADC
 	}
 	return (uint16_t)( sum / nsamples );
-	*/
+	
 	
 }
 

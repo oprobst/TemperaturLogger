@@ -37,7 +37,7 @@ int main( void )
 	
 	uint16_t supplyVolt = measure_supply_voltage();
 	
-	measure_mode(); //outcomment me to debug on pc
+	//measure_mode(); //outcomment me to debug on pc
 	
 	if (supplyVolt < 4500 && supplyVolt > 1000){
 		// Set UART pins to 0, to prevent reverse voltage from ft232 VCC pin (~ 1V if RX/TX = Hi)
