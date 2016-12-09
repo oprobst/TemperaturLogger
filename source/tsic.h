@@ -21,7 +21,7 @@
 #define Abbruch()			if (timeout==0){return 0;}				// Abbruch, falls der sensor abgezogen wird
 
 void TSIC_INIT(void);
-uint8_t getTSicTemp(uint16_t *temp_value16);
+uint8_t getTSicTemp(int32_t *temp_value16);
 uint8_t readSens(uint16_t *temp_value);
 uint8_t checkParity(uint16_t *temp_value);
 

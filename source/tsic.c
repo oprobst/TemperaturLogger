@@ -82,12 +82,12 @@ uint8_t checkParity(uint16_t *temp_value) {
 	return 1;
 }
 
-uint8_t getTSicTemp(uint16_t *temp_value16) {
+uint8_t getTSicTemp(int32_t *temp_value16) {
 		uint16_t temp_value1 = 0;
 		uint16_t temp_value2 = 0;
 
 		TSIC_ON();
-		_delay_us(200);     // wait for stabilization
+		_delay_ms(100);     // wait for stabilization
 
 		readSens(&temp_value1);			// 1. Byte einlesen
 		readSens(&temp_value2);			// 2. Byte einlesen
@@ -95,6 +95,7 @@ uint8_t getTSicTemp(uint16_t *temp_value16) {
 		checkParity(&temp_value2);		// Parity vom 2. Byte prüfen
 
 		TSIC_OFF();		// Sensor ausschalten
-		*temp_value16 = (temp_value1 << 8) + temp_value2;
+		uint16_t val = (temp_value1 << 8) + temp_value2;
+		*temp_value16 = (( ((double) val) /2047.0 * 70.0) - 10.0) * 100  ;
 		return 1;
 }

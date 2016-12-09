@@ -27,7 +27,22 @@ void uart_init(void)
 
 }
 
-
+uint16_t read_config_value (){
+	uart_transmit_string("Enter 3 digits:\r\n ");
+	uint8_t digit = 100;
+	uint16_t result = 0;
+	uint8_t multiplier = 1;
+	do {
+		char command = uart_receive();
+		if (command > 47 && command < 58){
+			result += (command - 48) * digit;
+			digit = digit / 10;
+			} else if (command == 45){
+			multiplier = -1;
+		}
+	} while (digit != 0);	
+	return result * multiplier;
+}
 
 void uart_transmit_integer(int32_t value)
 {

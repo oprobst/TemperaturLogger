@@ -13,5 +13,6 @@ unsigned char uart_receive( void );
 
 void uart_transmit( unsigned char data );
 
+uint16_t read_config_value ();
 
 #endif /* UART_H_ */
