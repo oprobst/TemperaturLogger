@@ -4,7 +4,7 @@
 
 #include "eeprom-store.h"
 
-#define EEPROM_DATA_STARTPOS 5
+#define EEPROM_DATA_STARTPOS 6
 
 uint16_t eeprom_curr_pos = EEPROM_DATA_STARTPOS;
 uint8_t end_of_buffer = FALSE;
@@ -14,6 +14,14 @@ void write_next_value (int32_t value){
 	if (end_of_buffer == TRUE){
 		return;
 	} 
+	uint32_t cPointerVal = 1;
+	while (get_protected_mode() == 1 &&  cPointerVal != 0 &&  eeprom_curr_pos < EEPROM_SIZE-1){		
+		eeprom_read_block (& cPointerVal, (void *) eeprom_curr_pos, get_resolution());			
+		if (cPointerVal != 0){
+			eeprom_curr_pos = eeprom_curr_pos + get_resolution();
+		}	
+	}
+		
 	//eeprom_update_byte((void *) eeprom_curr_pos, value);	
 	eeprom_update_block( & value, (void *) eeprom_curr_pos, get_resolution());
     eeprom_curr_pos = eeprom_curr_pos + get_resolution();
@@ -36,6 +44,19 @@ uint16_t read_next_value (void){
 		end_of_buffer = TRUE;
 	} 
 	return value;	
+}
+
+uint8_t clear(void){
+	eeprom_curr_pos = EEPROM_DATA_STARTPOS;
+	while(1){
+	  
+	  eeprom_update_word((uint16_t *) (eeprom_curr_pos), 0);
+	  eeprom_curr_pos = eeprom_curr_pos + get_resolution();
+	  if (eeprom_curr_pos >= EEPROM_SIZE-1){
+		  end_of_buffer = TRUE;
+		  return;
+	  }
+	}
 }
 
 uint8_t is_buffer_full (void){
@@ -94,6 +115,18 @@ uint16_t get_interval (){
 	uint16_t ret = eeprom_read_word((uint16_t *) 3);
 	if (ret == 0xFFFF){
 		ret = 1;
+	}
+	return ret;
+}
+
+void set_protected_mode (int8_t val){
+	eeprom_update_byte((uint8_t *) 4, val);
+}
+
+int8_t get_protected_mode (){
+	int8_t ret = eeprom_read_byte((uint8_t *) 4);
+	if (ret != 1 && ret != 0){
+		return 0;
 	}
 	return ret;
 }

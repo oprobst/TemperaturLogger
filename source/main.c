@@ -19,14 +19,15 @@ int main( void )
 	DDRB |= (1 << PB0 | 1 << PB1);
 	//PA3: Power up supply sensor
 	DDRA |= (1 << PA3);
-	
+
+//test
 	//Clock on PB2
-	//CLKCR |= (1 << CKOUTC);
-	
-	set_start_temperature(5);
-	set_end_temperature(30);
-	set_resolution(1);
-	set_intervall(180);
+	//CLKCR |= (1 << CKOUTC);	
+	//set_start_temperature(5);
+	//set_end_temperature(30);
+	//set_resolution(1);
+	//set_intervall(180);
+//endoftest
 	
 	init_adc();
 	init_interrupts ();
@@ -34,6 +35,7 @@ int main( void )
 	TSIC_INIT();	// Init TSIC Temperatursensor
 	
 	sei();
+	_delay_ms(1000);
 	
 	uint16_t supplyVolt = measure_supply_voltage();
 	
@@ -103,8 +105,9 @@ void measure_mode(){
 }
 
 void output_mode (){
-	uart_transmit_string("\n\rTEMPERATURE LOGGER\n\r");
-	uart_transmit_string("\n\r USB MODE \n\r");
+	PORTB ^= (1<<PB0);
+	//uart_transmit_string("\n\rTEMPERATURE LOGGER\n\r");
+	//uart_transmit_string("\n\r USB MODE \n\r");
 	print_help();
 	while(1)
 	{
@@ -145,6 +148,16 @@ void output_mode (){
 			} else if (command == 'r'){
 			set_resolution(read_config_value());
 			show_configuration();
+			} else if (command == 'c'){
+			clear();
+			show_configuration();
+			} else if (command == 'p'){
+			if (get_protected_mode() == 1){
+				set_protected_mode(0);
+			} else{
+				set_protected_mode(1);
+			}
+			show_configuration();
 			} else {
 			uart_transmit_string("Unknown \n\r");
 			print_help();
@@ -163,6 +176,7 @@ void print_help(){
 	uart_transmit_string(" sxxx  => min C\n\r");
 	uart_transmit_string(" exxx  => max C\n\r");
 	uart_transmit_string(" rxxx  => res (001 or 002) \n\r");
+	uart_transmit_string(" p  => protected \n\r");
 }
 
 void show_configuration(){
@@ -175,11 +189,14 @@ void show_configuration(){
 	uart_transmit_string("\n\r Interval : ");
 	uart_transmit_integer(get_interval());
 	uart_transmit_string(" sec.\n\r ");
+	uart_transmit_string("\n\r protected: ");
+	uart_transmit_integer(get_protected_mode());
+	uart_transmit_string(" mV\n\r ");
 	uart_transmit_string("\n\r Voltage : ");
 	uart_transmit_integer(measure_supply_voltage());
 	uart_transmit_string(" mV\n\r ");
 	if (getTSicTemp(&temperature)){ 
-	    uart_transmit_string("Current temperature:");
+	    uart_transmit_string("Temperature:");
 		uart_transmit_integer(temperature);
 		uart_transmit_string("\n\r");
 	}

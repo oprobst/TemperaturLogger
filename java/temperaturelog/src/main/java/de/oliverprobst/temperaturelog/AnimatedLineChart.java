@@ -71,8 +71,8 @@ public class AnimatedLineChart extends Application {
 		lineChart.setHorizontalGridLinesVisible(true);
 
 		// Set Name for Series
-		series1.setName("Temperature [°C]");
-		series2.setName("Mean last " + MEAN_BUFFER_SIZE + " [°C]");
+		series1.setName("Temperature [C]");
+		series2.setName("Mean last " + MEAN_BUFFER_SIZE + " [C]");
 
 		// Add Chart Series
 		lineChart.getData().addAll(series1);

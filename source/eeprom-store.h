@@ -44,6 +44,9 @@ uint8_t get_resolution ();
 
 void set_intervall (uint16_t value);
 uint16_t get_interval ();
+
+int8_t get_protected_mode ();
+void set_protected_mode (int8_t);
 #endif
 
  
